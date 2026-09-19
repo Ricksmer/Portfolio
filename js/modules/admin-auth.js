@@ -103,34 +103,74 @@ export function saveLinkEdit(key, url) {
 }
 
 /**
- * Interactive helper to attach a photo: supports local file upload (Base64) or Image URL
+ * Interactive helper to attach a photo: directly opens OS file chooser for local upload
  */
 export function triggerPhotoAttachment(photoKey, onLoadedCallback) {
-  const choice = confirm('ATTACH PHOTO\n\nClick OK to upload an image from your device, or CANCEL to enter an image URL.');
-  if (choice) {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.onchange = () => {
-      const file = input.files && input.files[0];
-      if (!file) return;
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = () => {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const dataUrl = e.target.result;
+      saveAttachedPhoto(photoKey, dataUrl);
+      if (onLoadedCallback) onLoadedCallback(dataUrl);
+    };
+    reader.readAsDataURL(file);
+  };
+  input.click();
+}
+
+/**
+ * Attaches HTML5 Drag-and-Drop and click-to-browse handlers to any element
+ */
+export function setupDropzone(element, photoKey, onLoadedCallback) {
+  if (!element) return;
+
+  element.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    element.classList.add('is-dragover');
+  });
+
+  element.addEventListener('dragenter', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    element.classList.add('is-dragover');
+  });
+
+  element.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    element.classList.remove('is-dragover');
+  });
+
+  element.addEventListener('drop', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    element.classList.remove('is-dragover');
+
+    const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if (file && file.type.startsWith('image/')) {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        const dataUrl = e.target.result;
+      reader.onload = (ev) => {
+        const dataUrl = ev.target.result;
         saveAttachedPhoto(photoKey, dataUrl);
         if (onLoadedCallback) onLoadedCallback(dataUrl);
       };
       reader.readAsDataURL(file);
-    };
-    input.click();
-  } else {
-    const url = prompt('Enter image URL (e.g. https://... or raw image link):');
-    if (url && url.trim()) {
-      const cleanUrl = url.trim();
-      saveAttachedPhoto(photoKey, cleanUrl);
-      if (onLoadedCallback) onLoadedCallback(cleanUrl);
     }
-  }
+  });
+
+  // Clicking the dropzone opens file dialog
+  element.addEventListener('click', (e) => {
+    if (e.target.closest('button') && e.target.closest('button') !== element) return;
+    e.preventDefault();
+    e.stopPropagation();
+    triggerPhotoAttachment(photoKey, onLoadedCallback);
+  });
 }
 
 export function initAdminAuth() {
@@ -270,7 +310,85 @@ export function initAdminAuth() {
     });
   }
 
-  // Global link click handler during edit mode
+  let linkEditorPopover = null;
+  let activeEditingLink = null;
+
+  function ensureLinkEditorPopover() {
+    if (linkEditorPopover) return linkEditorPopover;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'cms-link-popover-overlay';
+    overlay.innerHTML = `
+      <div class="cms-link-popover" role="dialog" aria-modal="true">
+        <div class="cms-link-popover-title">
+          <span>🔗</span> EDIT LINK DESTINATION
+        </div>
+        <div class="cms-link-popover-hint">
+          Enter new destination address (URL, https://..., mailto:, or tel:):
+        </div>
+        <input type="text" class="cms-link-input" id="cms-popover-url-input" placeholder="https://..." />
+        <div class="cms-link-actions">
+          <button type="button" class="cms-link-cancel-btn" id="cms-popover-cancel-btn">Cancel</button>
+          <button type="button" class="cms-link-save-btn" id="cms-popover-save-btn">Update Link</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    const input = overlay.querySelector('#cms-popover-url-input');
+    const saveBtn = overlay.querySelector('#cms-popover-save-btn');
+    const cancelBtn = overlay.querySelector('#cms-popover-cancel-btn');
+
+    function close() {
+      overlay.classList.remove('is-open');
+      activeEditingLink = null;
+    }
+
+    cancelBtn.addEventListener('click', close);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) close();
+    });
+
+    saveBtn.addEventListener('click', () => {
+      if (!activeEditingLink) return;
+      const newHref = input.value.trim();
+      if (newHref) {
+        const linkId = activeEditingLink.getAttribute('data-link-id') || 'custom_link';
+        activeEditingLink.setAttribute('href', newHref);
+        saveLinkEdit(linkId, newHref);
+
+        activeEditingLink.classList.add('cms-link-updated');
+        setTimeout(() => activeEditingLink.classList.remove('cms-link-updated'), 600);
+      }
+      close();
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        saveBtn.click();
+      } else if (e.key === 'Escape') {
+        close();
+      }
+    });
+
+    linkEditorPopover = {
+      open(link) {
+        activeEditingLink = link;
+        input.value = link.getAttribute('href') || '';
+        overlay.classList.add('is-open');
+        setTimeout(() => {
+          input.focus();
+          input.select();
+        }, 80);
+      },
+      close
+    };
+
+    return linkEditorPopover;
+  }
+
+  // Global link click handler during edit mode (opens visual popover)
   document.addEventListener('click', (e) => {
     if (!isAdminActive()) return;
 
@@ -280,45 +398,52 @@ export function initAdminAuth() {
       e.preventDefault();
       e.stopPropagation();
 
-      const linkId = link.getAttribute('data-link-id') || 'custom_link';
-      const currentHref = link.getAttribute('href') || '';
-      const promptText = `EDIT LINK DESTINATION (URL)\n\nCurrent target: ${currentHref}\n\nEnter new destination address (URL or mailto/tel):`;
-      const newHref = prompt(promptText, currentHref);
-
-      if (newHref !== null) {
-        const cleanHref = newHref.trim();
-        link.setAttribute('href', cleanHref);
-        saveLinkEdit(linkId, cleanHref);
-
-        // Visual feedback
-        link.classList.add('cms-link-updated');
-        setTimeout(() => link.classList.remove('cms-link-updated'), 600);
-        alert('Link destination updated.');
-      }
+      const popover = ensureLinkEditorPopover();
+      popover.open(link);
     }
   }, true);
 
-  // Setup photo attachment buttons on cards
+  // Setup photo attachment dropzones and buttons on cards
   function setupPhotoButtons() {
     document.querySelectorAll('.project-card, .arc-card').forEach((card, idx) => {
-      if (card.querySelector('.cms-card-photo-btn')) return;
-
       const cardId = card.getAttribute('data-detail-id') || `card_${idx}`;
-      const photoBtn = document.createElement('button');
-      photoBtn.className = 'cms-card-photo-btn';
-      photoBtn.type = 'button';
-      photoBtn.textContent = 'ATTACH PHOTO';
-      photoBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        triggerPhotoAttachment(`card_photo_${cardId}`, (dataUrl) => {
-          applyCardPhoto(card, dataUrl);
-        });
+      const photoKey = `card_photo_${cardId}`;
+
+      // 1. Interactive Drag & Drop Area
+      let dropzone = card.querySelector('.cms-card-dropzone');
+      if (!dropzone) {
+        dropzone = document.createElement('div');
+        dropzone.className = 'cms-card-dropzone';
+        dropzone.innerHTML = `
+          <span class="dropzone-icon">⇲</span>
+          <span class="dropzone-title">DROP IMAGE HERE TO REPLACE</span>
+          <span class="dropzone-hint">OR CLICK TO BROWSE LOCAL FILES</span>
+        `;
+        card.insertBefore(dropzone, card.firstChild);
+      }
+
+      setupDropzone(dropzone, photoKey, (dataUrl) => {
+        applyCardPhoto(card, dataUrl);
       });
-      card.appendChild(photoBtn);
+
+      // 2. Fallback quick button
+      if (!card.querySelector('.cms-card-photo-btn')) {
+        const photoBtn = document.createElement('button');
+        photoBtn.className = 'cms-card-photo-btn';
+        photoBtn.type = 'button';
+        photoBtn.textContent = 'ATTACH PHOTO';
+        photoBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          triggerPhotoAttachment(photoKey, (dataUrl) => {
+            applyCardPhoto(card, dataUrl);
+          });
+        });
+        card.appendChild(photoBtn);
+      }
 
       // Check if photo already exists
-      const savedPhoto = getAttachedPhoto(`card_photo_${cardId}`);
+      const savedPhoto = getAttachedPhoto(photoKey);
       if (savedPhoto) {
         applyCardPhoto(card, savedPhoto);
       }
@@ -330,16 +455,31 @@ export function initAdminAuth() {
     if (!cover) {
       cover = document.createElement('div');
       cover.className = 'cms-card-cover';
-      card.insertBefore(cover, card.firstChild);
+      const dropzone = card.querySelector('.cms-card-dropzone');
+      if (dropzone && dropzone.nextSibling) {
+        card.insertBefore(cover, dropzone.nextSibling);
+      } else {
+        card.insertBefore(cover, card.firstChild);
+      }
     }
     cover.style.backgroundImage = `url("${dataUrl}")`;
     cover.style.display = 'block';
+
+    // Allow dragging new image directly onto existing cover too!
+    const cardId = card.getAttribute('data-detail-id') || 'card';
+    setupDropzone(cover, `card_photo_${cardId}`, (newUrl) => {
+      cover.style.backgroundImage = `url("${newUrl}")`;
+    });
   }
 
   // Disable Admin Mode
   function disableAdminMode() {
     sessionStorage.removeItem(AUTH_KEY);
     document.body.classList.remove('admin-mode-active');
+
+    if (linkEditorPopover) {
+      linkEditorPopover.close();
+    }
 
     document.querySelectorAll('[contenteditable]').forEach(el => {
       el.removeAttribute('contenteditable');
@@ -349,7 +489,7 @@ export function initAdminAuth() {
       link.classList.remove('cms-link-editable');
     });
 
-    document.querySelectorAll('.cms-card-photo-btn, .cms-specimen-photo-btn').forEach(btn => {
+    document.querySelectorAll('.cms-card-dropzone, .cms-card-photo-btn, .cms-specimen-photo-btn').forEach(btn => {
       btn.remove();
     });
   }

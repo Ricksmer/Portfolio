@@ -13,11 +13,11 @@
   --line: rgba(242, 242, 239, 0.14);
   --line-strong: rgba(242, 242, 239, 0.28);
 
-  /* Glass & Chrome Materials */
-  --glass: rgba(255, 255, 255, 0.035);
-  --glass-hover: rgba(255, 255, 255, 0.07);
+  /* Glass & Chrome Materials (Frosted Obsidian Glass for High-Contrast Readability) */
+  --glass: rgba(11, 15, 24, 0.86);
+  --glass-hover: rgba(16, 22, 34, 0.92);
   --glass-border: rgba(255, 255, 255, 0.16);
-  --glass-border-hover: rgba(255, 255, 255, 0.35);
+  --glass-border-hover: rgba(166, 243, 255, 0.5);
 
   /* Iridescent Accents (Never large flat color fields; used for specular highlights and borders) */
   --iris-a: #a6f3ff;

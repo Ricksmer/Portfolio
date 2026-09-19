@@ -383,3 +383,186 @@ a.cms-link-updated {
   display: block;
   z-index: 1;
 }
+
+/* =========================================================================
+   Interactive Drag & Drop Image Uploader Dropzones
+   ========================================================================= */
+.cms-card-dropzone {
+  position: relative;
+  border: 1.5px dashed rgba(166, 243, 255, 0.45);
+  border-radius: var(--radius);
+  padding: 16px 12px;
+  margin: -24px -24px 18px -24px;
+  background: rgba(10, 13, 20, 0.85);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.25s var(--ease-out-expo);
+  text-align: center;
+}
+
+.cms-card-dropzone:hover,
+.cms-card-dropzone.is-dragover {
+  border-color: var(--iris-a);
+  background: rgba(166, 243, 255, 0.12);
+  box-shadow: 0 0 24px rgba(166, 243, 255, 0.3), inset 0 0 16px rgba(166, 243, 255, 0.15);
+  transform: scale(1.02);
+}
+
+.cms-card-dropzone .dropzone-icon {
+  font-size: 18px;
+  color: var(--iris-a);
+  line-height: 1;
+}
+
+.cms-card-dropzone .dropzone-title {
+  font-family: var(--font-m);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+}
+
+.cms-card-dropzone .dropzone-hint {
+  font-family: var(--font-m);
+  font-size: 9px;
+  color: var(--fg-dim);
+  letter-spacing: 0.06em;
+}
+
+/* Specimen Dropzone in Detail Page */
+.detail-specimen-frame.cms-specimen-dropzone {
+  cursor: pointer;
+  border: 1.5px dashed rgba(166, 243, 255, 0.4);
+}
+
+.detail-specimen-frame.cms-specimen-dropzone.is-dragover {
+  border-color: var(--iris-a);
+  background: rgba(166, 243, 255, 0.15);
+  box-shadow: 0 0 30px rgba(166, 243, 255, 0.35);
+}
+
+/* =========================================================================
+   Visual Inline Link Destination Editor Popover
+   ========================================================================= */
+.cms-link-popover-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  background: rgba(5, 7, 10, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.cms-link-popover-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cms-link-popover {
+  width: min(500px, 92vw);
+  background: #0d0f16;
+  border: 1px solid var(--iris-a);
+  border-radius: var(--radius);
+  padding: 28px 28px 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(166, 243, 255, 0.25);
+  position: relative;
+  transform: scale(0.95);
+  transition: transform 0.25s var(--ease-out-expo);
+}
+
+.cms-link-popover-overlay.is-open .cms-link-popover {
+  transform: scale(1);
+}
+
+.cms-link-popover-title {
+  font-family: var(--font-d);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cms-link-popover-hint {
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--fg-dim);
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
+
+.cms-link-input {
+  width: 100%;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  font-family: var(--font-m);
+  font-size: 13px;
+  color: #ffffff;
+  margin-bottom: 20px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cms-link-input:focus {
+  border-color: var(--iris-a);
+  box-shadow: 0 0 14px rgba(166, 243, 255, 0.3);
+}
+
+.cms-link-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cms-link-save-btn {
+  padding: 9px 20px;
+  background: var(--iris-gradient);
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-m);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #050608;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.cms-link-save-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.cms-link-cancel-btn {
+  padding: 9px 18px;
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  font-family: var(--font-m);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fg-dim);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.cms-link-cancel-btn:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+

@@ -22,12 +22,14 @@ export function initOrbController() {
 
   function openArc() {
     clearTimeout(closeTimeout);
+    closeTimeout = null;
     isOpen = true;
     container.classList.add('is-open');
   }
 
   function closeArc() {
     clearTimeout(closeTimeout);
+    closeTimeout = null;
     isOpen = false;
     container.classList.remove('is-open');
   }
@@ -45,18 +47,28 @@ export function initOrbController() {
     }
   });
 
-  // Global mousemove tracking for generous proximity buffer
+  // Global mousemove tracking with generous proximity buffer
   window.addEventListener('mousemove', (e) => {
     if (!isOpen) return;
+
+    // Never close if the mouse is actively hovering inside the container or over any contact pill
+    if (e.target && (e.target.closest('.sayhi-container') || e.target.closest('.contact-pill'))) {
+      clearTimeout(closeTimeout);
+      closeTimeout = null;
+      return;
+    }
 
     const center = getOrbCenter();
     const distance = Math.hypot(e.clientX - center.x, e.clientY - center.y);
 
-    // If mouse moves beyond 260px from the orb center, smoothly close
-    if (distance > 260) {
-      closeTimeout = setTimeout(closeArc, 80);
+    // If mouse moves beyond 360px from the orb center, smoothly close
+    if (distance > 360) {
+      if (!closeTimeout) {
+        closeTimeout = setTimeout(closeArc, 120);
+      }
     } else {
       clearTimeout(closeTimeout);
+      closeTimeout = null;
     }
   }, { passive: true });
 

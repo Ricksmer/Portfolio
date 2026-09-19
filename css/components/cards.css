@@ -13,10 +13,10 @@
 }
 
 .project-card {
-  background: var(--glass);
+  background: rgba(12, 16, 26, 0.88);
   border: 1px solid var(--glass-border);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border-radius: var(--radius);
   padding: 32px;
   display: flex;
@@ -166,6 +166,28 @@
   margin-top: 36px;
 }
 
+/* Edge gradient fades on container to preserve backdrop-filter on cards */
+.achievements-carousel-container::before,
+.achievements-carousel-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 48px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.achievements-carousel-container::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--bg) 0%, transparent 100%);
+}
+
+.achievements-carousel-container::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--bg) 0%, transparent 100%);
+}
+
 .achievements-strip-wrapper {
   position: relative;
   width: 100%;
@@ -175,10 +197,6 @@
   padding: 18px 0 32px;
   scrollbar-width: none;
   -ms-overflow-style: none;
-
-  /* Left and Right Edge Gradient Fade Masks (Item #6) */
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
 }
 
 .achievements-strip-wrapper::-webkit-scrollbar {
@@ -200,16 +218,17 @@
 .achievement-card {
   flex: none;
   width: 360px;
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(14px);
+  background: rgba(12, 16, 26, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border-radius: var(--radius);
   padding: 32px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.65);
   transition: transform 0.25s var(--ease-out-expo), border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -221,9 +240,10 @@
 
 .ach-year {
   font-family: var(--font-m);
-  font-size: 36px;
+  font-size: 38px;
   font-weight: 800;
-  color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.88); /* Lighter, clear, high-contrast & prominent */
+  text-shadow: 0 0 20px rgba(166, 243, 255, 0.35);
   margin-bottom: 8px;
   letter-spacing: -0.02em;
 }
@@ -260,9 +280,10 @@
 }
 
 .experience-item {
-  background: var(--glass);
+  background: rgba(12, 16, 26, 0.88);
   border: 1px solid var(--glass-border);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border-radius: var(--radius);
   padding: 30px 36px;
   display: flex;

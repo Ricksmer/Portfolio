@@ -1,6 +1,7 @@
 /**
  * Main Application Bootstrap
  * Orchestrates modular architecture and component lifecycles
+ * Protected with per-module error boundaries
  */
 import { PROJECTS } from './data/projects.js';
 import { ACHIEVEMENTS } from './data/achievements.js';
@@ -15,32 +16,49 @@ import { initDetailModal } from './modules/detail-modal.js';
 import { initAnimations } from './modules/animations.js';
 import { initOrbController } from './modules/orb-controller.js';
 import { initAdminAuth, getAttachedPhoto } from './modules/admin-auth.js';
+import { initHeader } from './modules/header.js';
 
-document.addEventListener('DOMContentLoaded', async () => {
-  // 1. Render Dynamic Project Cards with Prominent Tags & Dedicated Arrow Container (Item #8)
-  renderProjects();
+function safeRun(name, fn) {
+  try {
+    fn();
+  } catch (err) {
+    console.error(`[Portfolio Bootstrap] Error initializing ${name}:`, err);
+  }
+}
+
+function bootstrap() {
+  // 1. Render Dynamic Project Cards with Prominent Tags & Dedicated Arrow Container
+  safeRun('renderProjects', renderProjects);
 
   // 2. Render Dynamic Achievements Cards
-  renderAchievements();
+  safeRun('renderAchievements', renderAchievements);
 
   // 3. Render Dynamic Experience Items
-  renderExperience();
+  safeRun('renderExperience', renderExperience);
 
   // 4. Initialize Core Interactive Components
-  initCursor();
-  initSpine();
-  initTechMarquee();
-  initArcCarousel();
-  initDetailModal();
-  initOrbController();
-  initAdminAuth();
+  safeRun('initCursor', initCursor);
+  safeRun('initHeader', initHeader);
+  safeRun('initSpine', initSpine);
+  safeRun('initTechMarquee', initTechMarquee);
+  safeRun('initArcCarousel', initArcCarousel);
+  safeRun('initDetailModal', initDetailModal);
+  safeRun('initOrbController', initOrbController);
+  safeRun('initAdminAuth', initAdminAuth);
 
-  // 5. Initialize WebGL 3D Glass Donut & Big Chrome Centerpiece (Items #5, #7, #8, #11)
-  await initWebGLTorus();
+  // 5. Initialize WebGL 3D Liquid Chrome Star Centerpiece
+  safeRun('initWebGLTorus', initWebGLTorus);
 
   // 6. Initialize GSAP / Lenis / Magnetic Interactions
-  initAnimations();
-});
+  safeRun('initAnimations', initAnimations);
+}
+
+// Immediate or deferred execution guard
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootstrap);
+} else {
+  bootstrap();
+}
 
 /**
  * Render Project Cards with Prominent Tech Tags & Dedicated Arrow Container

@@ -1,0 +1,69 @@
+/**
+ * Transient Optical Glass Refractor
+ * Creates a sleek, compact optical glass crystal that momentarily sweeps across
+ * section headers during scroll transitions and quickly exits,
+ * guaranteeing 100% text legibility without ever lingering over body text.
+ */
+
+.transient-refractor {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 20;
+  backdrop-filter: blur(12px) saturate(220%) contrast(115%) brightness(1.08);
+  -webkit-backdrop-filter: blur(12px) saturate(220%) contrast(115%) brightness(1.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.7),
+    inset 0 0 25px rgba(255, 255, 255, 0.28),
+    inset 0 2px 5px rgba(166, 243, 255, 0.9),
+    inset 0 -2px 5px rgba(201, 182, 255, 0.8),
+    0 0 22px rgba(166, 243, 255, 0.35);
+  opacity: 0;
+  transform: scale(0.7);
+  will-change: transform, opacity;
+}
+
+/* Inner optical highlight ring */
+.refractor-facet {
+  position: absolute;
+  inset: 4px;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Prismatic chromatic rim sheen */
+.refractor-glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(166, 243, 255, 0.5) 40%, rgba(201, 182, 255, 0.5) 70%, rgba(255, 255, 255, 0.7) 100%);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1.5px;
+  pointer-events: none;
+}
+
+/* Initial section placements (top corner outside main text) */
+#refractor-about {
+  top: 40px;
+  right: 15%;
+}
+
+#refractor-projects {
+  top: 20px;
+  left: 20%;
+}
+
+@media (max-width: 900px) {
+  .transient-refractor {
+    width: 100px;
+    height: 100px;
+  }
+}

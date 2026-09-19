@@ -15,6 +15,20 @@
   opacity: 0.98;
 }
 
+/* Slightly Dark Scrim Overlay between 3D Canvas Elements and Foreground Text/Content */
+.canvas-scrim {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  pointer-events: none;
+  background: rgba(5, 8, 14, 0.48);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  transition: opacity 0.5s ease;
+}
+
 /* Fallback radial glow if WebGL is unavailable */
 .canvas-fallback {
   position: absolute;
@@ -257,6 +271,16 @@ section {
   justify-content: space-between;
 }
 
+.about-text-panel {
+  background: rgba(11, 15, 24, 0.88);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 38px 40px;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
 .about-lead {
   font-size: clamp(22px, 2.4vw, 30px);
   font-weight: 600;
@@ -419,3 +443,49 @@ footer {
     gap: 48px;
   }
 }
+
+/* =========================================================================
+   New Independent Chromatic Text Interactions (Sweep Untouched)
+   ========================================================================= */
+
+/* Liquid Chrome Prismatic Text Shimmer */
+.chrome-text-shimmer {
+  background: linear-gradient(
+    110deg,
+    #7a889b 0%,
+    #b8cde4 20%,
+    #ffffff 38%,
+    var(--iris-a) 48%,
+    var(--iris-b) 58%,
+    #ffffff 68%,
+    #6d7d91 85%,
+    #a8bdd5 100%
+  );
+  background-size: 260% 100%;
+  background-position: var(--shimmer-pos, 0%) 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  transition: background-position 0.12s ease-out;
+  filter: drop-shadow(0 0 14px rgba(166, 243, 255, 0.2));
+}
+
+/* Editorial Paragraph Text Word Scrub */
+.editorial-scrub-word {
+  display: inline-block;
+  opacity: 0.35;
+  transform: translateY(2px);
+  transition: opacity 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+              color 0.35s ease,
+              text-shadow 0.35s ease;
+  will-change: opacity, transform;
+}
+
+.editorial-scrub-word.is-illuminated {
+  opacity: 1;
+  transform: translateY(0);
+  color: #ffffff;
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.25);
+}
+

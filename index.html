@@ -11,8 +11,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-  <!-- Main Modular Stylesheet -->
-  <link rel="stylesheet" href="css/main.css" />
+  <!-- Modular Stylesheets -->
+  <link rel="stylesheet" href="css/main.css?v=23" />
+  <link rel="stylesheet" href="css/components/header.css?v=23" />
+  <link rel="stylesheet" href="css/components/refractors.css?v=23" />
 
   <!-- Pinned CDN Libraries (GSAP, ScrollTrigger, Lenis) -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
@@ -41,9 +43,39 @@
     <div class="canvas-fallback" aria-hidden="true"></div>
   </div>
 
+  <!-- Cinematic Dark Scrim Overlay between 3D Canvas and Page Content -->
+  <div class="canvas-scrim" aria-hidden="true"></div>
+
   <!-- Inverted / Negative Color Custom Cursor (Item #3) -->
   <div class="cursor-ring" aria-hidden="true"></div>
   <div class="cursor-dot" aria-hidden="true"></div>
+
+  <!-- Top Navigation Header Island Capsule -->
+  <header class="top-nav-island" aria-label="Main Navigation">
+    <div class="nav-brand-block">
+      <a href="#intro" class="nav-brand-monogram" data-cursor="link">
+        RC <span class="nav-brand-badge">'26</span>
+      </a>
+      <div class="nav-clock-wrap" title="Philippine Standard Time">
+        <span class="nav-live-dot" aria-hidden="true"></span>
+        <span class="nav-clock-time" id="nav-live-time">CEBU --:--:-- PHT</span>
+      </div>
+    </div>
+
+    <ul class="nav-tabs-list" role="tablist">
+      <li><button class="nav-tab-btn is-active" data-target="intro" data-cursor="link"><span class="tab-num">01</span> INTRO</button></li>
+      <li><button class="nav-tab-btn" data-target="about" data-cursor="link"><span class="tab-num">02</span> ABOUT</button></li>
+      <li><button class="nav-tab-btn" data-target="projects" data-cursor="link"><span class="tab-num">03</span> WORK</button></li>
+      <li><button class="nav-tab-btn" data-target="achievements" data-cursor="link"><span class="tab-num">04</span> AWARDS</button></li>
+      <li><button class="nav-tab-btn" data-target="experience" data-cursor="link"><span class="tab-num">05</span> EXP</button></li>
+      <li><button class="nav-tab-btn" data-target="stack" data-cursor="link"><span class="tab-num">06</span> STACK</button></li>
+      <li><button class="nav-tab-btn" data-target="more" data-cursor="link"><span class="tab-num">07</span> MORE</button></li>
+    </ul>
+
+    <a href="#about" class="nav-cta-btn" data-cursor="hello">
+      SAY HI ↗
+    </a>
+  </header>
 
   <!-- Left Timeline Spine Navigation (7 Defined Sections) -->
   <nav class="timeline-spine" aria-label="Timeline Navigation">
@@ -124,11 +156,16 @@
 
     <!-- 02: ABOUT (Item #9: Matches Spine) -->
     <section id="about">
+      <!-- Transient Optical Glass Refractor (Momentary Pass across Header on Scroll) -->
+      <div class="transient-refractor" id="refractor-about" aria-hidden="true">
+        <div class="refractor-facet"></div>
+        <div class="refractor-glow"></div>
+      </div>
       <div class="eyebrow reveal">ABOUT</div>
       <div class="deco-text" style="top: -40px; right: 0;">01/?</div>
 
       <div class="about-grid">
-        <div class="reveal">
+        <div class="reveal about-text-panel">
           <p class="about-lead">
             Driven by obsessive craft and creative curiosity — engineering software that feels as deliberate, fluid, and refined to touch as it is structurally sound.
           </p>
@@ -209,12 +246,129 @@
 
     <!-- 03: PROJECTS (Item #9: Matches Spine) -->
     <section id="projects">
+      <!-- Transient Optical Glass Refractor (Momentary Pass across Header on Scroll) -->
+      <div class="transient-refractor" id="refractor-projects" aria-hidden="true">
+        <div class="refractor-facet"></div>
+        <div class="refractor-glow"></div>
+      </div>
       <div class="eyebrow reveal">PROJECTS</div>
       <div class="deco-text" style="top: -20px; right: 0;">WORK//</div>
       <p class="reveal" style="max-width: 680px;">
         Engineering systems, Android architectures, and interactive experiments built with modularity and tactile feedback.
       </p>
-      <div class="projects-grid" id="projects-grid"></div>
+      <div class="projects-grid" id="projects-grid">
+        <article class="project-card" data-detail-type="projects" data-detail-id="sarismart" data-cursor="view">
+          <div class="project-card-header">
+            <div class="project-card-kicker">OFFLINE-FIRST MOBILE SYSTEM</div>
+            <h3 class="project-card-title">SariSmart</h3>
+          </div>
+          <p class="project-card-lead">Offline-first Android inventory management app for sari-sari stores, built with an MVP architecture.</p>
+          <div class="project-card-footer">
+            <div class="project-tags">
+              <span class="p-tag">Kotlin</span>
+              <span class="p-tag">Android</span>
+              <span class="p-tag">MVP Architecture</span>
+            </div>
+            <div class="project-arrow-btn" aria-hidden="true">→</div>
+          </div>
+        </article>
+
+        <article class="project-card" data-detail-type="projects" data-detail-id="marketplace" data-cursor="view">
+          <div class="project-card-header">
+            <div class="project-card-kicker">FULL-STACK COMMERCE</div>
+            <h3 class="project-card-title">Online Marketplace</h3>
+          </div>
+          <p class="project-card-lead">Modern commerce prototype with dynamic cataloging, cart state management, and authenticated checkout.</p>
+          <div class="project-card-footer">
+            <div class="project-tags">
+              <span class="p-tag">Web</span>
+              <span class="p-tag">React</span>
+              <span class="p-tag">Node.js</span>
+            </div>
+            <div class="project-arrow-btn" aria-hidden="true">→</div>
+          </div>
+        </article>
+
+        <article class="project-card" data-detail-type="projects" data-detail-id="silentium" data-cursor="view">
+          <div class="project-card-header">
+            <div class="project-card-kicker">AUDIO &amp; PRODUCTIVITY</div>
+            <h3 class="project-card-title">Silentium</h3>
+          </div>
+          <p class="project-card-lead">Minimalist atmospheric soundscapes and distraction-free workspace environment for focused work.</p>
+          <div class="project-card-footer">
+            <div class="project-tags">
+              <span class="p-tag">Web Audio API</span>
+              <span class="p-tag">TypeScript</span>
+              <span class="p-tag">UI/UX</span>
+            </div>
+            <div class="project-arrow-btn" aria-hidden="true">→</div>
+          </div>
+        </article>
+
+        <article class="project-card" data-detail-type="projects" data-detail-id="color-sequence" data-cursor="view">
+          <div class="project-card-header">
+            <div class="project-card-kicker">INTERACTIVE GAME LOGIC</div>
+            <h3 class="project-card-title">Color Sequence Game</h3>
+          </div>
+          <p class="project-card-lead">Pattern memorization and reactive sequencing game exploring timing, score states, and sound cues.</p>
+          <div class="project-card-footer">
+            <div class="project-tags">
+              <span class="p-tag">JavaScript</span>
+              <span class="p-tag">Game Logic</span>
+              <span class="p-tag">Canvas</span>
+            </div>
+            <div class="project-arrow-btn" aria-hidden="true">→</div>
+          </div>
+        </article>
+
+        <article class="project-card" data-detail-type="projects" data-detail-id="hamsteremoji" data-cursor="view">
+          <div class="project-card-header">
+            <div class="project-card-kicker">CREATIVE ASSET PLATFORM</div>
+            <h3 class="project-card-title">Hamsteremoji</h3>
+          </div>
+          <p class="project-card-lead">Interactive vector emoji creator and asset generator for digital communities.</p>
+          <div class="project-card-footer">
+            <div class="project-tags">
+              <span class="p-tag">SVG</span>
+              <span class="p-tag">Interaction</span>
+              <span class="p-tag">Canvas</span>
+            </div>
+            <div class="project-arrow-btn" aria-hidden="true">→</div>
+          </div>
+        </article>
+
+        <article class="project-card" data-detail-type="projects" data-detail-id="react-components" data-cursor="view">
+          <div class="project-card-header">
+            <div class="project-card-kicker">UI COMPONENT ARCHITECTURE</div>
+            <h3 class="project-card-title">React Component &amp; Props</h3>
+          </div>
+          <p class="project-card-lead">Modular design system library emphasizing polymorphic components, strict typing, and a11y standards.</p>
+          <div class="project-card-footer">
+            <div class="project-tags">
+              <span class="p-tag">React</span>
+              <span class="p-tag">TypeScript</span>
+              <span class="p-tag">Storybook</span>
+            </div>
+            <div class="project-arrow-btn" aria-hidden="true">→</div>
+          </div>
+        </article>
+
+        <article class="project-card" data-detail-type="projects" data-detail-id="expressjs-api" data-cursor="view">
+          <div class="project-card-header">
+            <div class="project-card-kicker">API ARCHITECTURE</div>
+            <h3 class="project-card-title">ExpressJS Backend Suite</h3>
+          </div>
+          <p class="project-card-lead">Robust RESTful microservices engine featuring JWT authorization, rate limiting, and database abstraction.</p>
+          <div class="project-card-footer">
+            <div class="project-tags">
+              <span class="p-tag">Node.js</span>
+              <span class="p-tag">Express</span>
+              <span class="p-tag">PostgreSQL</span>
+            </div>
+            <div class="project-arrow-btn" aria-hidden="true">→</div>
+          </div>
+        </article>
+      </div>
     </section>
 
     <!-- Subtle Section Divider (Item #10) -->
@@ -228,7 +382,61 @@
       </p>
       <div class="achievements-carousel-container">
         <div class="achievements-strip-wrapper">
-          <div class="achievements-strip" id="achievements-strip"></div>
+          <div class="achievements-strip" id="achievements-strip">
+            <div class="achievement-card" data-detail-type="achievements" data-detail-id="naga-hackathon" data-cursor="view">
+              <div>
+                <div class="ach-year">2026</div>
+                <div class="ach-tag">HACKATHON — SEMIFINALIST</div>
+                <h4 class="ach-title">1st Naga City Mayoral Hackathon</h4>
+              </div>
+              <div class="ach-meta">Hospital/Health Track · Team Techalang · 5-Member Team</div>
+            </div>
+
+            <div class="achievement-card" data-detail-type="achievements" data-detail-id="nextlevel-gamedev" data-cursor="view">
+              <div>
+                <div class="ach-year">2026</div>
+                <div class="ach-tag">GAME DEV — REGIONAL FINALIST</div>
+                <h4 class="ach-title">NEXT LEVEL: Esports Game Dev Challenge</h4>
+              </div>
+              <div class="ach-meta">Top 6–10 Regional Finalist · Team Clutch Five · DOST Region VII</div>
+            </div>
+
+            <div class="achievement-card" data-detail-type="achievements" data-detail-id="icon-pinoyparty" data-cursor="view">
+              <div>
+                <div class="ach-year">2026</div>
+                <div class="ach-tag">EXHIBITOR &amp; FINALIST</div>
+                <h4 class="ach-title">DOST Game Dev Challenge at ICon — Pinoy Party</h4>
+              </div>
+              <div class="ach-meta">4-Player Multiplayer · Team Clutch Five · ICon Convention</div>
+            </div>
+
+            <div class="achievement-card" data-detail-type="achievements" data-detail-id="codechum-c" data-cursor="view">
+              <div>
+                <div class="ach-year">2024</div>
+                <div class="ach-tag">CERTIFICATION — TOP 1</div>
+                <h4 class="ach-title">CodeChum C Programming Certification</h4>
+              </div>
+              <div class="ach-meta">National Benchmark Assessment · 2024</div>
+            </div>
+
+            <div class="achievement-card" data-detail-type="achievements" data-detail-id="codechum-java" data-cursor="view">
+              <div>
+                <div class="ach-year">2024</div>
+                <div class="ach-tag">CERTIFICATION — CERTIFIED</div>
+                <h4 class="ach-title">CodeChum Java Programming Certification</h4>
+              </div>
+              <div class="ach-meta">Object-Oriented Programming Assessment</div>
+            </div>
+
+            <div class="achievement-card" data-detail-type="achievements" data-detail-id="dost-sei" data-cursor="view">
+              <div>
+                <div class="ach-year">2023 – PRESENT</div>
+                <div class="ach-tag">NATIONAL SCHOLARSHIP</div>
+                <h4 class="ach-title">DOST-SEI Merit Scholarship Award</h4>
+              </div>
+              <div class="ach-meta">Department of Science and Technology · Republic of the Philippines</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -242,7 +450,31 @@
       <p class="reveal" style="max-width: 680px;">
         Leading creative direction, developer community branding, and institutional publications.
       </p>
-      <div class="experience-stack" id="experience-stack"></div>
+      <div class="experience-stack" id="experience-stack">
+        <div class="experience-item" data-detail-type="experience" data-detail-id="gdgoc" data-cursor="view">
+          <div class="exp-role-block">
+            <h4 class="exp-role">Chief Creatives Officer</h4>
+            <div class="exp-org">Google Developer Groups on Campus (GDGoC) – CIT-U</div>
+          </div>
+          <div class="exp-period">2026 – Present</div>
+        </div>
+
+        <div class="experience-item" data-detail-type="experience" data-detail-id="cmap" data-cursor="view">
+          <div class="exp-role-block">
+            <h4 class="exp-role">Creatives Officer</h4>
+            <div class="exp-org">Committee on Media and Publications (CMAP)</div>
+          </div>
+          <div class="exp-period">2025 – Present</div>
+        </div>
+
+        <div class="experience-item" data-detail-type="experience" data-detail-id="dostsiete" data-cursor="view">
+          <div class="exp-role-block">
+            <h4 class="exp-role">Creatives Officer</h4>
+            <div class="exp-org">DOST SA SIETE – Scholars' Association Region VII</div>
+          </div>
+          <div class="exp-period">2024</div>
+        </div>
+      </div>
     </section>
 
     <!-- Subtle Section Divider (Item #10) -->
@@ -357,7 +589,7 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 
   <!-- Native ES Module Application Bootstrap -->
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/main.js?v=23"></script>
 
 </body>
 </html>

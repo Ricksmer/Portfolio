@@ -10,6 +10,7 @@ import {
   isAdminActive,
   getAttachedPhoto,
   triggerPhotoAttachment,
+  setupDropzone,
   getDetailEdit,
   saveDetailEdit
 } from './admin-auth.js';
@@ -141,28 +142,38 @@ export function initDetailModal() {
       </div>
     `;
 
-    // Hook photo attachment buttons inside detail page
+    // Hook photo attachment dropzones and buttons inside detail page
     if (adminMode) {
-      contentArea.querySelectorAll('.cms-specimen-photo-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const photoKey = btn.getAttribute('data-photo-slot');
-          const frame = btn.closest('.detail-specimen-frame');
+      contentArea.querySelectorAll('.detail-specimen-frame').forEach(frame => {
+        frame.classList.add('cms-specimen-dropzone');
+        const btn = frame.querySelector('.cms-specimen-photo-btn');
+        const photoKey = btn ? btn.getAttribute('data-photo-slot') : null;
+        if (!photoKey) return;
 
-          triggerPhotoAttachment(photoKey, (dataUrl) => {
-            let img = frame.querySelector('.detail-specimen-img');
-            if (!img) {
-              img = document.createElement('img');
-              img.className = 'detail-specimen-img';
-              frame.insertBefore(img, btn);
-            }
-            img.src = dataUrl;
-            btn.textContent = 'REPLACE PHOTO';
-            const span = frame.querySelector('span');
-            if (span) span.remove();
+        function applySpecimenPhoto(dataUrl) {
+          let img = frame.querySelector('.detail-specimen-img');
+          if (!img) {
+            img = document.createElement('img');
+            img.className = 'detail-specimen-img';
+            if (btn) frame.insertBefore(img, btn);
+            else frame.appendChild(img);
+          }
+          img.src = dataUrl;
+          if (btn) btn.textContent = 'REPLACE PHOTO';
+          const span = frame.querySelector('span');
+          if (span) span.remove();
+        }
+
+        // Enable Drag & Drop directly onto the specimen mockup slot
+        setupDropzone(frame, photoKey, applySpecimenPhoto);
+
+        if (btn) {
+          btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            triggerPhotoAttachment(photoKey, applySpecimenPhoto);
           });
-        });
+        }
       });
 
       // Hook real-time saving on blur for detail editable fields

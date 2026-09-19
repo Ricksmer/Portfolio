@@ -1,0 +1,252 @@
+/**
+ * Top Navigation Header Island Capsule
+ * Bespoke 100,000 PHP floating glassmorphic navbar:
+ * - Brand monogram + live Cebu City (GMT+8) digital clock ticker
+ * - 7 interactive section tabs synchronized with scroll
+ * - Specular liquid chrome gloss styling and quick contact CTA
+ * - Pure flex centering (no transform clash with GSAP)
+ */
+
+/* Reset & Container */
+.top-nav-island {
+  position: fixed !important;
+  top: 16px !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  z-index: 9999 !important;
+  width: min(94vw, 1380px) !important;
+  height: 56px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 16px 0 20px !important;
+  background: rgba(10, 13, 18, 0.88) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 999px !important;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 0 0 1px rgba(0, 0, 0, 0.6) !important;
+  user-select: none !important;
+  box-sizing: border-box !important;
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+
+/* Prismatic top rim sheen */
+.top-nav-island::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(166, 243, 255, 0.8), #ffffff, rgba(196, 70, 255, 0.8), transparent);
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+/* Left Brand & Clock Module */
+.nav-brand-block {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.nav-brand-monogram {
+  font-family: var(--font-d, 'Space Grotesk', sans-serif);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.nav-brand-badge {
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--iris-a, #a6f3ff);
+  font-family: var(--font-m, 'JetBrains Mono', monospace);
+  letter-spacing: 0.08em;
+}
+
+.nav-clock-wrap {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-m, 'JetBrains Mono', monospace);
+  font-size: 11px;
+  color: rgba(242, 242, 239, 0.7);
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+  padding-left: 14px;
+}
+
+.nav-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #00ff88;
+  box-shadow: 0 0 10px #00ff88;
+  animation: navPulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes navPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.8); }
+}
+
+.nav-clock-time {
+  font-weight: 600;
+  color: var(--fg, #f2f2ef);
+  letter-spacing: 0.06em;
+}
+
+/* Center Navigation Tabs */
+.nav-tabs-nav {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.nav-tabs-list {
+  display: flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.nav-tabs-list li {
+  list-style: none !important;
+  display: flex !important;
+  align-items: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.nav-tab-btn {
+  all: unset !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  color: rgba(242, 242, 239, 0.7) !important;
+  font-family: var(--font-m, 'JetBrains Mono', monospace) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.08em !important;
+  padding: 6px 12px !important;
+  border-radius: 999px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  transition: all 0.22s ease !important;
+  white-space: nowrap !important;
+}
+
+.nav-tab-btn .tab-num {
+  font-size: 9px;
+  opacity: 0.55;
+}
+
+.nav-tab-btn:hover {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+.nav-tab-btn.is-active {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(166, 243, 255, 0.45) !important;
+  box-shadow: 0 0 16px rgba(166, 243, 255, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+.nav-tab-btn.is-active .tab-num {
+  color: var(--iris-a, #a6f3ff);
+  opacity: 1;
+  font-weight: 700;
+}
+
+/* Right Quick Contact CTA */
+.nav-actions-block {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.nav-cta-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 8px 18px !important;
+  border-radius: 999px !important;
+  font-family: var(--font-d, 'Space Grotesk', sans-serif) !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  color: #080a0e !important;
+  text-decoration: none !important;
+  background: linear-gradient(135deg, #ffffff 0%, #c4d7ec 50%, #8fa0b5 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 
+    0 4px 14px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 #ffffff,
+    0 0 14px rgba(166, 243, 255, 0.4) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, filter 0.25s ease !important;
+  flex-shrink: 0 !important;
+  cursor: pointer !important;
+}
+
+.nav-cta-btn:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 #ffffff,
+    0 0 24px rgba(166, 243, 255, 0.7) !important;
+  filter: brightness(1.08) !important;
+}
+
+/* Responsive Adaptations */
+@media (max-width: 1120px) {
+  .nav-tabs-list {
+    gap: 1px !important;
+  }
+  .nav-tab-btn {
+    padding: 5px 9px !important;
+    font-size: 10px !important;
+  }
+}
+
+@media (max-width: 960px) {
+  .nav-tabs-nav,
+  .nav-tabs-list {
+    display: none !important; /* Retain spacious brand & CTA on mobile */
+  }
+  .top-nav-island {
+    height: 50px !important;
+    padding: 0 14px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .top-nav-island {
+    top: 10px !important;
+    width: calc(100vw - 20px) !important;
+    height: 48px !important;
+    padding: 0 12px !important;
+  }
+  .nav-clock-wrap {
+    display: none !important;
+  }
+}
