@@ -1,0 +1,80 @@
+/**
+ * Infinite Tech Stack Marquee Component
+ * Solves Bug #7:
+ * 1. Infinite linear -50% CSS loop without seam or cut-off stutter.
+ * 2. Does NOT pause the whole track on hover (which caused freezing/discontinuity);
+ *    instead scopes tactile lift/zoom to the specific hovered chip!
+ */
+.stack-group {
+  margin-bottom: 28px;
+}
+
+.stack-group-label {
+  font-family: var(--font-m);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--fg-faint);
+  margin-bottom: 12px;
+}
+
+.marquee-container {
+  position: relative;
+  overflow: hidden;
+  padding: 8px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  animation: infiniteMarquee 32s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track.reverse {
+  animation-direction: reverse;
+}
+
+@keyframes infiniteMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Individual Tech Chip */
+.tech-chip {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius);
+  font-family: var(--font-m);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--fg);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.22s var(--ease-out-expo), border-color 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.tech-chip:hover {
+  transform: translateY(-3px) scale(1.04);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--iris-a);
+  box-shadow: 0 6px 20px rgba(166, 243, 255, 0.14);
+}
+
+.tech-chip .chip-symbol {
+  color: var(--iris-b);
+  font-size: 10px;
+  font-weight: 700;
+}

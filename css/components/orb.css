@@ -1,0 +1,250 @@
+/**
+ * Liquid Chrome "Say Hi" Orb & Upper-Left Floating Arc Contacts
+ * Implements Item #2 & Item #6:
+ * 1. Vertically aligned with the bottom of Leadership Roles container.
+ * 2. Floating pills emerge from BEHIND the orb (z-index: 10 behind orb z-index: 20).
+ * 3. Invisible hit-box bridge & .is-open class eliminating hover-glitches when moving toward pills.
+ */
+.sayhi-wrapper {
+  position: relative;
+  margin-top: auto; /* Aligns with bottom of container */
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding-top: 40px;
+}
+
+.sayhi-container {
+  position: relative;
+  width: 124px;
+  height: 124px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 25;
+}
+
+/* Invisible Hit-Box Bridge: Covers the entire area between orb and pills to prevent hover loss */
+.sayhi-hitbox-bridge {
+  position: absolute;
+  top: -160px;
+  left: -200px;
+  width: 340px;
+  height: 300px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.sayhi-container:hover .sayhi-hitbox-bridge,
+.sayhi-container.is-open .sayhi-hitbox-bridge {
+  pointer-events: auto;
+}
+
+/* Liquid Chrome Sphere (Reference 2) */
+.chrome-orb {
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
+  flex: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 20; /* Sits ON TOP of the floating contact pills */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  user-select: none;
+  transition: transform 0.32s var(--ease-out-expo), box-shadow 0.35s ease;
+
+  /* Polished Liquid Chrome Mirror Gradient */
+  background:
+    radial-gradient(circle at 32% 26%, #ffffff 0%, #edf3fa 16%, #b0bece 35%, #353b49 58%, #0d0f14 78%, #444e60 96%),
+    linear-gradient(145deg, #ffffff 0%, #95a9bf 30%, #1a1e27 60%, #8295ad 100%);
+  
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.8),
+    inset 0 3px 6px rgba(255, 255, 255, 0.95),
+    inset 0 -6px 14px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+/* Rotating Prismatic Iridescent Rim */
+.chrome-orb::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  padding: 3px;
+  background: conic-gradient(
+    from 0deg,
+    var(--iris-a),
+    var(--iris-b),
+    var(--iris-c),
+    var(--iris-d),
+    var(--iris-a)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.55;
+  transition: opacity 0.4s ease, filter 0.4s ease;
+  animation: orbRimSpin 7s linear infinite;
+  pointer-events: none;
+}
+
+/* Specular Reflection Hotspot */
+.chrome-orb::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 18px;
+  width: 52px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.9) 0%, transparent 80%);
+  transform: rotate(-25deg);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sayhi-container:hover .chrome-orb,
+.sayhi-container.is-open .chrome-orb {
+  transform: scale(1.06);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.9),
+    inset 0 4px 10px #ffffff,
+    inset 0 -8px 16px rgba(0, 0, 0, 0.95),
+    0 0 32px rgba(166, 243, 255, 0.5);
+}
+
+.sayhi-container:hover .chrome-orb::after,
+.sayhi-container.is-open .chrome-orb::after {
+  opacity: 1;
+  filter: drop-shadow(0 0 12px rgba(166, 243, 255, 0.85));
+}
+
+@keyframes orbRimSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Clean, High-Contrast Embossed "SAY HI" Typography */
+.orb-label {
+  font-family: var(--font-d);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: 0.16em;
+  color: #080a0e;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9),
+    0 -1px 0 rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 2;
+}
+
+/* ================= Floating Upper-Left Contact Arc (Behind Orb) ================= */
+.arc-contacts {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 10; /* Strictly BEHIND the Chrome Orb */
+}
+
+.contact-pill {
+  position: absolute;
+  top: -18px;
+  left: -50px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: var(--radius);
+  font-family: var(--font-m);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--fg);
+  background: rgba(13, 13, 18, 0.94);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+  white-space: nowrap;
+  text-decoration: none;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(0, 0) scale(0.2);
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.3s ease,
+              border-color 0.25s ease,
+              background-color 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+.contact-pill .pill-icon {
+  color: var(--iris-a);
+  font-size: 11px;
+}
+
+/* Pop Out in an Upper-Left Fanning Arc from BEHIND the Orb */
+.sayhi-container:hover .contact-pill,
+.sayhi-container:focus-within .contact-pill,
+.sayhi-container.is-open .contact-pill {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+/* Pill 1: Email (Fanning West / Left) */
+.sayhi-container:hover .pill-email,
+.sayhi-container:focus-within .pill-email,
+.sayhi-container.is-open .pill-email {
+  transform: translate(-185px, -15px) scale(1);
+  transition-delay: 0ms;
+}
+
+/* Pill 2: GitHub (Fanning North-West / Upper-Left) */
+.sayhi-container:hover .pill-github,
+.sayhi-container:focus-within .pill-github,
+.sayhi-container.is-open .pill-github {
+  transform: translate(-150px, -95px) scale(1);
+  transition-delay: 45ms;
+}
+
+/* Pill 3: Call (Fanning North / Top) */
+.sayhi-container:hover .pill-call,
+.sayhi-container:focus-within .pill-call,
+.sayhi-container.is-open .pill-call {
+  transform: translate(-25px, -155px) scale(1);
+  transition-delay: 90ms;
+}
+
+.contact-pill:hover {
+  background: rgba(25, 28, 38, 0.98);
+  border-color: var(--iris-a);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(166, 243, 255, 0.3);
+  color: #ffffff;
+  transform: scale(1.05) !important;
+}
+
+@media (max-width: 600px) {
+  .sayhi-wrapper {
+    justify-content: center;
+    margin-top: 50px;
+  }
+  .sayhi-container:hover .pill-email,
+  .sayhi-container.is-open .pill-email {
+    transform: translate(-140px, -20px) scale(0.9);
+  }
+  .sayhi-container:hover .pill-github,
+  .sayhi-container.is-open .pill-github {
+    transform: translate(-110px, -80px) scale(0.9);
+  }
+  .sayhi-container:hover .pill-call,
+  .sayhi-container.is-open .pill-call {
+    transform: translate(-15px, -130px) scale(0.9);
+  }
+}

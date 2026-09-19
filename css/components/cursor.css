@@ -1,0 +1,60 @@
+/**
+ * Custom Interactive Cursor Component
+ * Implements Item #3: Inverted / Negative color transition when hovering over clickables
+ */
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(242, 242, 239, 0.5);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.22s var(--ease-out-expo),
+              height 0.22s var(--ease-out-expo),
+              background-color 0.2s ease,
+              border-color 0.2s ease,
+              box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--iris-a);
+  box-shadow: 0 0 8px var(--iris-a);
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+/* Inverted / Negative Color State on Hover over Clickables (Item #3) */
+.cursor-ring.is-hovering {
+  width: 38px;
+  height: 38px;
+  background-color: #ffffff;
+  mix-blend-mode: difference; /* Inverts background & text underneath */
+  border: none;
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.4);
+}
+
+.cursor-dot.is-hovering {
+  opacity: 0; /* Merges into the difference circle cleanly */
+}
+
+/* Touch Device Override */
+@media (hover: none) and (pointer: coarse) {
+  .cursor-ring, .cursor-dot {
+    display: none !important;
+  }
+}

@@ -1,0 +1,104 @@
+/**
+ * Left Timeline Spine Navigation
+ * Fixed vertical progress spine with active glow & smooth scroll triggers
+ */
+.timeline-spine {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--spine-w);
+  height: 100vh;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 36px;
+  pointer-events: none;
+}
+
+/* Vertical Hairline Guide */
+.spine-line {
+  position: absolute;
+  top: 12vh;
+  bottom: 12vh;
+  left: 42px;
+  width: 1px;
+  background: var(--line);
+  z-index: 1;
+}
+
+.spine-list {
+  position: relative;
+  z-index: 2;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.spine-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  pointer-events: auto;
+  group: true;
+  transition: transform 0.25s var(--ease-out-expo);
+}
+
+.spine-item:hover {
+  transform: translateX(3px);
+}
+
+/* Dot Indicator */
+.spine-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--bg);
+  border: 1px solid var(--fg-faint);
+  transition: all 0.3s var(--ease-out-expo);
+  flex: none;
+}
+
+/* Monospace Label */
+.spine-label {
+  font-family: var(--font-m);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--fg-faint);
+  transition: color 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+}
+
+/* Active Highlighted State */
+.spine-item.is-active .spine-dot {
+  background-color: var(--iris-a);
+  border-color: #ffffff;
+  transform: scale(1.6);
+  box-shadow: 0 0 10px rgba(166, 243, 255, 0.8), 0 0 20px rgba(201, 182, 255, 0.4);
+}
+
+.spine-item.is-active .spine-label {
+  color: var(--fg);
+  font-weight: 600;
+  transform: translateX(4px);
+}
+
+.spine-item:hover .spine-label {
+  color: var(--fg-dim);
+}
+
+/* Responsive: Collapse to Dots on Mobile / Tablets */
+@media (max-width: 900px) {
+  .timeline-spine {
+    width: var(--spine-w-mob);
+    padding-left: 18px;
+  }
+  .spine-line {
+    left: 21px;
+  }
+  .spine-label {
+    display: none;
+  }
+}

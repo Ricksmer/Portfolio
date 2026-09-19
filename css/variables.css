@@ -1,0 +1,47 @@
+/**
+ * Design Tokens & Variables
+ * Aesthetic: Acid Graphic / Neo-Brutalist Glassmorphism ("Chrome Aesthetic")
+ */
+:root {
+  /* Color Base */
+  --bg: #07070a;
+  --bg-alt: #0d0d10;
+  --bg-trans: rgba(7, 7, 10, 0.75);
+  --fg: #f2f2ef;
+  --fg-dim: #8b8b92;
+  --fg-faint: #4d4d54;
+  --line: rgba(242, 242, 239, 0.14);
+  --line-strong: rgba(242, 242, 239, 0.28);
+
+  /* Glass & Chrome Materials */
+  --glass: rgba(255, 255, 255, 0.035);
+  --glass-hover: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-border-hover: rgba(255, 255, 255, 0.35);
+
+  /* Iridescent Accents (Never large flat color fields; used for specular highlights and borders) */
+  --iris-a: #a6f3ff;
+  --iris-b: #c9b6ff;
+  --iris-c: #ffd9a6;
+  --iris-d: #ff9ecb;
+  --iris-gradient: linear-gradient(135deg, var(--iris-a), var(--iris-b), var(--iris-c), var(--iris-d));
+
+  /* Chrome Specular Stops */
+  --chrome-grad: radial-gradient(circle at 32% 28%, #ffffff 0%, #d8e2ec 20%, #8b97a8 42%, #2a2e38 68%, #12141a 90%, #3e4452 100%);
+  --chrome-specular: #ffffff;
+  --chrome-mid: #9ea8b6;
+  --chrome-dark: #1b1e24;
+
+  /* Typography */
+  --font-d: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-m: 'JetBrains Mono', monospace;
+
+  /* Layout & Geometry */
+  --radius: 3px;
+  --spine-w: 220px;
+  --spine-w-mob: 64px;
+
+  /* Transitions */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}

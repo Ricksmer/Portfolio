@@ -1,0 +1,323 @@
+/**
+ * Cards & List Components (Projects, Achievements, Experience, About)
+ * Implements Item #1 (Full-width fit), Item #6 (Carousel edge fades), and Item #8 (Prominent tags & dedicated arrow container)
+ */
+
+/* ================= Projects Grid ================= */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 28px;
+  margin-top: 36px;
+  width: 100%;
+}
+
+.project-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: var(--radius);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 310px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s var(--ease-out-expo),
+              border-color 0.3s ease,
+              background-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--iris-gradient);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Technical Editorial Registration Crosshair (Poster #7) */
+.project-card::after {
+  content: '+';
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+.project-card:hover::after {
+  color: var(--iris-a);
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--iris-a);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 28px rgba(166, 243, 255, 0.16);
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+.project-card-header {
+  margin-bottom: 18px;
+}
+
+.project-card-kicker {
+  font-family: var(--font-m);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--iris-a);
+  margin-bottom: 8px;
+}
+
+.project-card-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.project-card-lead {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--fg-dim);
+  margin-bottom: 28px;
+}
+
+/* Footer with Prominent Tech Tags and Dedicated Arrow Container (Item #8) */
+.project-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex: 1;
+}
+
+/* Noticeable, High-Contrast Tech Specification Tags (Item #8) */
+.p-tag {
+  font-family: var(--font-m);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: var(--radius);
+  color: #ffffff;
+  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-card:hover .p-tag {
+  background: rgba(166, 243, 255, 0.12);
+  border-color: var(--iris-a);
+  box-shadow: 0 0 12px rgba(166, 243, 255, 0.2);
+}
+
+/* Dedicated Circular Arrow Container (Item #8) */
+.project-arrow-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  font-family: var(--font-m);
+  font-size: 16px;
+  color: var(--fg);
+  transition: all 0.25s ease;
+}
+
+.project-card:hover .project-arrow-btn {
+  border-color: var(--iris-a);
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--iris-a);
+  transform: translateX(4px);
+  box-shadow: 0 0 16px rgba(166, 243, 255, 0.3);
+}
+
+/* ================= Achievements Full-Width Drag Strip (Item #1 & #6) ================= */
+.achievements-carousel-container {
+  position: relative;
+  width: 100%;
+  margin-top: 36px;
+}
+
+.achievements-strip-wrapper {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  cursor: grab;
+  padding: 18px 0 32px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  /* Left and Right Edge Gradient Fade Masks (Item #6) */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
+}
+
+.achievements-strip-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.achievements-strip-wrapper:active {
+  cursor: grabbing;
+}
+
+.achievements-strip {
+  display: flex;
+  gap: 28px;
+  width: max-content;
+  padding: 0 48px;
+  user-select: none;
+}
+
+.achievement-card {
+  flex: none;
+  width: 360px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  border-radius: var(--radius);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  transition: transform 0.25s var(--ease-out-expo), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.achievement-card:hover {
+  border-color: var(--iris-b);
+  transform: translateY(-6px);
+  box-shadow: 0 22px 55px rgba(0, 0, 0, 0.7), 0 0 24px rgba(201, 182, 255, 0.2);
+}
+
+.ach-year {
+  font-family: var(--font-m);
+  font-size: 36px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.22);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.ach-tag {
+  font-family: var(--font-m);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--iris-b);
+  margin-bottom: 12px;
+}
+
+.ach-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--fg);
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+
+.ach-meta {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fg-dim);
+}
+
+/* ================= Experience Stack ================= */
+.experience-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 36px;
+  width: 100%;
+}
+
+.experience-item {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  border-radius: var(--radius);
+  padding: 30px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.experience-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--iris-c);
+  transform: translateX(8px);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.5);
+}
+
+.exp-role-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.exp-role {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.exp-org {
+  font-size: 15px;
+  color: var(--fg-dim);
+}
+
+.exp-period {
+  font-family: var(--font-m);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--iris-c);
+  white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  .achievement-card {
+    width: 290px;
+  }
+  .achievements-strip {
+    padding: 0 20px;
+  }
+  .experience-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

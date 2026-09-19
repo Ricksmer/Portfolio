@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ricksmer Cabatingan — Portfolio</title>
+  <meta name="description" content="Portfolio of Ricksmer Cabatingan — BSIT 3rd Year, National DOST Scholar, and Chief Creatives Officer at GDGoC CIT-U." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Main Modular Stylesheet -->
+  <link rel="stylesheet" href="css/main.css" />
+
+  <!-- Pinned CDN Libraries (GSAP, ScrollTrigger, Lenis) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+</head>
+<body>
+
+  <!-- SVG Subtle Film-Grain Filter -->
+  <svg class="grain-overlay" aria-hidden="true">
+    <filter id="noiseFilter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" />
+    </filter>
+    <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+  </svg>
+
+  <!-- Atmospheric Blueprint Grid -->
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- Slower, Thinner Chromatic Sweep (Item #7) -->
+  <div class="chromatic-sweep" aria-hidden="true"></div>
+
+  <!-- Persistent 3D WebGL Torus & Big Chrome Centerpiece (Items #5, #7, #8, #11) -->
+  <div id="canvas-container" aria-label="Interactive 3D Glass & Chrome Centerpiece">
+    <div class="canvas-fallback" aria-hidden="true"></div>
+  </div>
+
+  <!-- Inverted / Negative Color Custom Cursor (Item #3) -->
+  <div class="cursor-ring" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
+  <!-- Left Timeline Spine Navigation (7 Defined Sections) -->
+  <nav class="timeline-spine" aria-label="Timeline Navigation">
+    <div class="spine-line" aria-hidden="true"></div>
+    <ul class="spine-list">
+      <li class="spine-item is-active" data-target="intro">
+        <span class="spine-dot"></span>
+        <span class="spine-label">01 — INTRO</span>
+      </li>
+      <li class="spine-item" data-target="about">
+        <span class="spine-dot"></span>
+        <span class="spine-label">02 — ABOUT</span>
+      </li>
+      <li class="spine-item" data-target="projects">
+        <span class="spine-dot"></span>
+        <span class="spine-label">03 — PROJECTS</span>
+      </li>
+      <li class="spine-item" data-target="achievements">
+        <span class="spine-dot"></span>
+        <span class="spine-label">04 — ACHIEVEMENTS</span>
+      </li>
+      <li class="spine-item" data-target="experience">
+        <span class="spine-dot"></span>
+        <span class="spine-label">05 — EXPERIENCE</span>
+      </li>
+      <li class="spine-item" data-target="stack">
+        <span class="spine-dot"></span>
+        <span class="spine-label">06 — STACK</span>
+      </li>
+      <li class="spine-item" data-target="more">
+        <span class="spine-dot"></span>
+        <span class="spine-label">07 — MORE</span>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Site Sections (Expanded to Full-Width Balance, Item #1) -->
+  <main class="site-content">
+
+    <!-- 01: INTRO (Item #9: Matches Spine) -->
+    <section id="intro">
+      <!-- Background Ghost Outline Typography (Poster #4 "ABSTRACT") -->
+      <div class="ghost-outline-type" aria-hidden="true">ABSTRACT<br />SHAPING</div>
+
+      <!-- Vertical Editorial Marginalia (Poster #4 "SHAPING" & Poster #7) -->
+      <div class="vertical-marginalia" aria-hidden="true">SHAPING // SOFTWARE // 2026</div>
+
+      <div class="hero-content-block">
+        <div class="editorial-stamp" style="margin-bottom: 16px;">
+          <span class="stamp-meta">01/7 // REFRACTIONS &amp;! PRISM</span>
+          <span class="stamp-pill">CRYSTAL CLEAR</span>
+        </div>
+        <div class="hero-kicker">// SOFTWARE ENGINEERING STUDENT — CEBU CITY, PH</div>
+        <h1 class="hero-name">
+          Ricksmer<br />
+          <span class="chrome-highlight">Cabatingan</span>
+        </h1>
+        <p class="hero-subline">
+          BS Information Technology, 3rd Year at Cebu Institute of Technology – University. National DOST Scholar building software and leading creative direction.
+        </p>
+        <div class="hero-meta">
+          <div>ROLE: <span>Chief Creatives Officer, GDGoC CIT-U</span></div>
+          <div>BASED: <span>Cebu City, Philippines</span></div>
+        </div>
+        <div class="admin-trigger-wrap">
+          <button class="admin-auth-trigger" id="admin-auth-trigger" aria-label="Editor Access" title="Authenticate to Edit Portfolio">
+            <span class="auth-dot"></span>
+          </button>
+        </div>
+        <div class="scroll-cue">
+          <i></i> SCROLL TO EXPLORE
+        </div>
+      </div>
+    </section>
+
+    <!-- Subtle Section Divider (Item #10) -->
+    <div class="section-divider"></div>
+
+    <!-- 02: ABOUT (Item #9: Matches Spine) -->
+    <section id="about">
+      <div class="eyebrow reveal">ABOUT</div>
+      <div class="deco-text" style="top: -40px; right: 0;">01/?</div>
+
+      <div class="about-grid">
+        <div class="reveal">
+          <p class="about-lead">
+            Driven by obsessive craft and creative curiosity — engineering software that feels as deliberate, fluid, and refined to touch as it is structurally sound.
+          </p>
+          <p class="about-body">
+            Third-year BS Information Technology student at Cebu Institute of Technology – University and a National DOST Scholar, with a strong foundation in software development and creative production. Outside the classroom, that same instinct carries into how he leads: as Chief Creatives Officer for GDGoC CIT-U, he treats a layout or a publication with the same care as a piece of code — deliberate, consistent, and built to be understood at a glance. He's most engaged where logic meets aesthetics — building a working feature one day, refining a visual system the next — and that range shows up across hackathons, game jams, and campus developer communities he's contributed to.
+          </p>
+
+          <!-- Distinct Individual Sentences for Credentials (Item #4) -->
+          <div class="credentials-box">
+            <div class="credential-card">
+              <div class="cred-title">// ACADEMIC HONORS</div>
+              <ul class="cred-sentence-list">
+                <li class="cred-sentence-item">Awarded as a National DOST Scholar under the Batch 2024 Merit Scholarship program.</li>
+                <li class="cred-sentence-item">Recognized as Top 1 of the BSIT Freshman Batch for the academic year 2024.</li>
+                <li class="cred-sentence-item">Conferred as Presidential Scholar during the 2nd Year, 2nd Semester.</li>
+                <li class="cred-sentence-item">Honored with the College Scholar Award across two consecutive academic years.</li>
+              </ul>
+            </div>
+
+            <div class="credential-card">
+              <div class="cred-title">// LEADERSHIP ROLES</div>
+              <ul class="cred-sentence-list">
+                <li class="cred-sentence-item">Leads visual branding, motion campaigns, and creative deliverables as Chief Creatives Officer for GDGoC CIT-U.</li>
+                <li class="cred-sentence-item">Directs official institutional publication designs and media releases as Creatives Officer for CMAP.</li>
+                <li class="cred-sentence-item">Created regional visual communications and branding collateral for DOST SA SIETE.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <!-- Currently Exploring Focus Tags -->
+          <div class="explore-section">
+            <div class="explore-label">// CURRENTLY EXPLORING</div>
+            <div class="explore-chips">
+              <div class="explore-chip" tabindex="0">
+                <b>UI/UX Design</b>
+                <small>Design systems, typography, interaction</small>
+              </div>
+              <div class="explore-chip" tabindex="0">
+                <b>Frontend Development</b>
+                <small>Motion graphics, WebGL, responsive frameworks</small>
+              </div>
+              <div class="explore-chip" tabindex="0">
+                <b>Game Development</b>
+                <small>Mechanics, physics tuning, rapid prototyping</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lowered Liquid Chrome "Say Hi" Button with Behind-Orb Floating Arc (Item #2) -->
+          <div class="sayhi-wrapper">
+            <div class="sayhi-container" id="sayhi-container" tabindex="0">
+              <div class="sayhi-hitbox-bridge"></div>
+              <div class="chrome-orb" id="sayhi-orb" data-cursor="hello">
+                <span class="orb-label">SAY<br />HI</span>
+              </div>
+              <div class="arc-contacts" aria-label="Contact Links">
+                <a class="contact-pill pill-email" href="mailto:ricksmer.cabatingan@cit.edu">
+                  <span class="pill-icon">✉</span> Email
+                </a>
+                <a class="contact-pill pill-github" href="https://github.com/Ricksmer" target="_blank" rel="noopener">
+                  <span class="pill-icon">⟡</span> GitHub
+                </a>
+                <a class="contact-pill pill-call" href="tel:+639429560278">
+                  <span class="pill-icon">☎</span> Call
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Subtle Section Divider (Item #10) -->
+    <div class="section-divider"></div>
+
+    <!-- 03: PROJECTS (Item #9: Matches Spine) -->
+    <section id="projects">
+      <div class="eyebrow reveal">PROJECTS</div>
+      <div class="deco-text" style="top: -20px; right: 0;">WORK//</div>
+      <p class="reveal" style="max-width: 680px;">
+        Engineering systems, Android architectures, and interactive experiments built with modularity and tactile feedback.
+      </p>
+      <div class="projects-grid" id="projects-grid"></div>
+    </section>
+
+    <!-- Subtle Section Divider (Item #10) -->
+    <div class="section-divider"></div>
+
+    <!-- 04: ACHIEVEMENTS (Item #9: Matches Spine) -->
+    <section id="achievements">
+      <div class="eyebrow reveal">ACHIEVEMENTS</div>
+      <p class="reveal" style="max-width: 680px;">
+        Hackathons, regional game development challenges, and verified technical benchmark certifications. (Drag horizontally to explore).
+      </p>
+      <div class="achievements-carousel-container">
+        <div class="achievements-strip-wrapper">
+          <div class="achievements-strip" id="achievements-strip"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Subtle Section Divider (Item #10) -->
+    <div class="section-divider"></div>
+
+    <!-- 05: EXPERIENCE (Item #9: Matches Spine) -->
+    <section id="experience">
+      <div class="eyebrow reveal">EXPERIENCE</div>
+      <p class="reveal" style="max-width: 680px;">
+        Leading creative direction, developer community branding, and institutional publications.
+      </p>
+      <div class="experience-stack" id="experience-stack"></div>
+    </section>
+
+    <!-- Subtle Section Divider (Item #10) -->
+    <div class="section-divider"></div>
+
+    <!-- 06: STACK (Item #9: Matches Spine) -->
+    <section id="stack">
+      <div class="eyebrow reveal">STACK</div>
+      <div class="deco-text" style="top: 0; right: 0;">STACK//</div>
+      <p class="reveal" style="max-width: 680px; margin-bottom: 32px;">
+        Continuous infinite inventory of languages, frameworks, and creative software.
+      </p>
+      <div id="tech-stack-container"></div>
+    </section>
+
+    <!-- Subtle Section Divider (Item #10) -->
+    <div class="section-divider"></div>
+
+    <!-- 07: MORE (Item #9: Matches Spine, Creative Portfolio Teaser) -->
+    <section id="more">
+      <div class="eyebrow reveal">MORE</div>
+      <h2 class="reveal" style="font-size: clamp(34px, 4.5vw, 60px); margin-bottom: 12px;">
+        Creative Portfolio <span class="mono-tag" style="vertical-align: middle;">// TEASER</span>
+      </h2>
+      <p class="reveal" style="max-width: 700px; margin-bottom: 18px;">
+        A curated teaser previewing brand systems, neo-chrome posters, game assets, editorial design, and 3D visual code. Explore the coverflow arc below or view the complete portfolio.
+      </p>
+      <div class="reveal" style="margin-bottom: 28px;">
+        <a class="pill" href="https://github.com/Ricksmer" target="_blank" rel="noopener">
+          <span class="k">PORTFOLIO</span>VIEW FULL CREATIVE PORTFOLIO ↗
+        </a>
+      </div>
+
+      <!-- 3D Arc / Coverflow Stage -->
+      <div class="arc-stage" tabindex="0">
+        <div class="arc-track" id="arc-carousel-track"></div>
+      </div>
+
+      <!-- Navigation & Counter Controls -->
+      <div class="arc-controls reveal">
+        <button class="arc-nav-btn" id="arc-prev-btn" aria-label="Previous Project">←</button>
+        <span class="arc-counter" id="arc-counter">01 / 06</span>
+        <button class="arc-nav-btn" id="arc-next-btn" aria-label="Next Project">→</button>
+      </div>
+    </section>
+
+    <!-- Subtle Section Divider (Item #10) -->
+    <div class="section-divider"></div>
+
+    <!-- SITE FOOTER -->
+    <footer>
+      <div class="footer-copy">
+        © 2026 RICKSMER CABATINGAN — ALL RIGHTS RESERVED
+      </div>
+      <div class="footer-status">
+        <span class="status-dot"></span> OPEN FOR INTERNSHIPS &amp; COLLABORATIONS
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Dedicated Full-Screen Detail Page View (Item #4 & #6) -->
+  <div class="detail-page-view" id="detail-page-view" role="dialog" aria-modal="true">
+    <header class="detail-top-nav">
+      <button class="detail-back-btn" id="detail-back-btn" aria-label="Back to Portfolio">
+        ← BACK TO PORTFOLIO
+      </button>
+      <div class="detail-breadcrumb">
+        RICKSMER // <span id="detail-breadcrumb-category">PROJECTS</span> // <span id="detail-breadcrumb-title">TITLE</span>
+      </div>
+      <div class="detail-nav-actions">
+        <a class="pill" href="https://github.com/Ricksmer" target="_blank" rel="noopener">
+          <span class="k">GH</span>Open on GitHub ↗
+        </a>
+      </div>
+    </header>
+    <main class="detail-page-container" id="detail-page-content"></main>
+  </div>
+
+  <!-- Client-Side Admin Auth Modal Dialog (Item #3) -->
+  <div class="admin-modal" id="admin-auth-modal" role="dialog" aria-modal="true" aria-labelledby="admin-modal-title">
+    <div class="admin-card">
+      <button class="admin-close-btn" id="admin-modal-close" aria-label="Close modal">CLOSE</button>
+      <div class="admin-card-header">
+        <div class="admin-card-tag">// CMS ACCESS</div>
+        <h3 class="admin-card-title" id="admin-modal-title">Ricksmer Cabatingan</h3>
+        <p class="admin-card-sub">Authenticate to enable live in-place text editing and direct content updates.</p>
+      </div>
+      <form class="admin-form" id="admin-auth-form">
+        <input class="admin-input" type="password" id="admin-auth-pass" placeholder="Enter passcode..." autocomplete="current-password" required />
+        <button class="admin-submit-btn" type="submit">AUTHENTICATE</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Floating Bottom Admin Bar (Active Mode - Sectionized Save & Cancel) -->
+  <div class="admin-bar" id="admin-bar">
+    <div class="admin-status-indicator">
+      <span class="status-dot"></span> EDITING ACTIVE
+    </div>
+    <div class="admin-bar-section admin-bar-security">
+      <button class="admin-action-btn btn-security" id="admin-change-pass-btn">CHANGE PASSCODE</button>
+    </div>
+    <div class="admin-bar-divider" aria-hidden="true"></div>
+    <div class="admin-bar-section admin-bar-actions">
+      <button class="admin-action-btn btn-save" id="admin-save-btn">SAVE</button>
+      <button class="admin-action-btn btn-cancel" id="admin-cancel-btn">CANCEL</button>
+    </div>
+  </div>
+
+  <!-- Pinned Three.js Standalone Script (Eliminates bare specifier errors) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
+  <!-- Native ES Module Application Bootstrap -->
+  <script type="module" src="js/main.js"></script>
+
+</body>
+</html>

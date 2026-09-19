@@ -1,0 +1,65 @@
+/**
+ * Chromatic Sweep Blur Component
+ * Implements Item #4:
+ * 1. Enormous height (260vh, top: -80vh) and feathered soft-gradient edges on all 4 sides,
+ *    guaranteeing that NO hard rectangular boundary or top cut-off is ever visible.
+ * 2. Slow, luxurious 36s traversal across the viewport.
+ * 3. Deep optical refraction blur over text.
+ */
+.chromatic-sweep {
+  position: fixed;
+  top: -80vh;
+  left: 0;
+  width: 50vw;
+  height: 260vh;
+  z-index: 35;
+  pointer-events: none;
+
+  /* Feathered gradient on all 4 edges to prevent any hard rectangular borders */
+  background:
+    radial-gradient(ellipse at center, rgba(201, 182, 255, 0.18) 0%, rgba(166, 243, 255, 0.12) 35%, rgba(255, 217, 166, 0.08) 55%, transparent 75%),
+    linear-gradient(105deg, transparent 0%, rgba(166, 243, 255, 0.06) 20%, rgba(201, 182, 255, 0.14) 50%, rgba(255, 217, 166, 0.06) 80%, transparent 100%);
+  
+  backdrop-filter: blur(20px) saturate(1.7);
+  -webkit-backdrop-filter: blur(20px) saturate(1.7);
+  transform: rotate(18deg) translateX(-140vw);
+  opacity: 0;
+  mix-blend-mode: screen;
+  animation: sweepDrift 36s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes sweepDrift {
+  0%, 10% {
+    transform: rotate(18deg) translateX(-140vw);
+    opacity: 0;
+  }
+  16% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: rotate(18deg) translateX(190vw);
+    opacity: 0.9;
+  }
+  56% {
+    transform: rotate(18deg) translateX(200vw);
+    opacity: 0;
+  }
+  56.01%, 100% {
+    transform: rotate(18deg) translateX(-140vw);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .chromatic-sweep {
+    width: 75vw;
+    backdrop-filter: blur(14px) saturate(1.5);
+    -webkit-backdrop-filter: blur(14px) saturate(1.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chromatic-sweep {
+    display: none !important;
+  }
+}
