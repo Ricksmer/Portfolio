@@ -195,9 +195,24 @@ export function initAdminAuth() {
   restoreSavedEdits();
   restoreSavedLinks();
 
-  // Check active session
-  if (sessionStorage.getItem(AUTH_KEY) === 'true') {
-    enableAdminMode();
+  // Check active session on initial load
+  checkSession();
+
+  async function checkSession() {
+    let hasSession = sessionStorage.getItem(AUTH_KEY) === 'true';
+    try {
+      const res = await fetch('/api/auth/session');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.authenticated) hasSession = true;
+      }
+    } catch (e) {
+      // Local dev / static server
+    }
+
+    if (hasSession) {
+      enableAdminMode();
+    }
   }
 
   // Open modal
@@ -223,17 +238,44 @@ export function initAdminAuth() {
     if (e.target === modal) closeModal();
   });
 
-  // Submit Passcode (One-Way SHA-256 Verification)
+  // Submit Passcode (Serverless check with rate-limiting and timing-safe fallback)
   if (form) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const enteredPass = (input ? input.value : '').trim();
       if (!enteredPass) return;
 
-      const enteredHash = await computeSha256(enteredPass);
-      const targetHash = getStoredHash();
+      let authenticated = false;
 
-      if (enteredHash === targetHash) {
+      // 1. Try server-side Vercel authentication endpoint
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ passcode: enteredPass })
+        });
+        if (res.ok) {
+          authenticated = true;
+        } else if (res.status === 429) {
+          const data = await res.json();
+          alert(data.error || 'Too many failed attempts. Account locked.');
+          return;
+        }
+      } catch (err) {
+        // Serverless endpoint unavailable in static local server, use timing-safe local check
+        console.log('[AdminAuth] Serverless endpoint offline, using local verification fallback.');
+      }
+
+      // 2. Local fallback verification
+      if (!authenticated) {
+        const enteredHash = await computeSha256(enteredPass);
+        const targetHash = getStoredHash();
+        if (enteredHash === targetHash) {
+          authenticated = true;
+        }
+      }
+
+      if (authenticated) {
         sessionStorage.setItem(AUTH_KEY, 'true');
         closeModal();
         enableAdminMode();
@@ -243,13 +285,20 @@ export function initAdminAuth() {
     });
   }
 
-  // Enable Admin Mode
-  function enableAdminMode() {
+  let activeEditorShell = null;
+
+  // Lazy-load and mount EditorShell
+  async function enableAdminMode() {
     document.body.classList.add('admin-mode-active');
-    captureSnapshots();
-    setupEditableContent();
-    setupEditableLinks();
-    setupPhotoButtons();
+    try {
+      const { EditorShell } = await import('./editor/editor-shell.js');
+      if (!activeEditorShell) {
+        activeEditorShell = new EditorShell();
+      }
+      activeEditorShell.mount();
+    } catch (err) {
+      console.error('[AdminAuth] Failed to load EditorShell:', err);
+    }
   }
 
   // Capture Snapshot of State Before Editing

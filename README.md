@@ -81,15 +81,68 @@ portfolio/
 
 ---
 
+---
+
+## 🔒 Password-Protected Edit Mode & Admin Layer
+
+The portfolio includes an administrative **Edit Mode** that allows instant editing of all site content while strictly preserving the public site's aesthetics, performance, and animations for normal visitors.
+
+### 1. Dual-View Architecture
+The editor provides a persistent minimalist top bar with a view toggle:
+- **View 1: Static B&W Edit View (Default)**:
+  - Designed for high-density, lag-free editing.
+  - The heavy WebGL 3D scene and smooth scrolling are completely unmounted and stopped so zero GPU/CPU cycles run in the background.
+  - Clean black & white design with 1px borders, left outline tree panel showing all 7 sections, and modular card stacks for every item.
+  - Inline editing, duplicate, delete with undo, hide/show, keyboard reordering, "+ Add Item" with type selection modal, and "+ Add Section".
+- **View 2: Live Render View**:
+  - Displays the live site with full liquid chrome, glass, 3D star, and animations driven by the same reactive store.
+  - Click any element to select it: high-layer outline appears with a floating mini-toolbar (`Edit ✎`, `Copy ⎘`, `Hide 👁`, `Delete ✕`).
+  - Slide-out right Inspector Drawer with live form inputs syncing to the DOM in real time.
+  - "Pause 3D" toggle for comfortable editing on lower-spec hardware.
+
+### 2. Single Source of Truth & Component Registry
+- Master normalized JSON schema: [`js/data/content.json`](file:///c:/Users/RICKSMER%20CABATINGAN/OneDrive/Documents/GitHub/MyProfile/Portfolio/js/data/content.json).
+- Universal Component Registry: [`js/modules/registry/componentRegistry.js`](file:///c:/Users/RICKSMER%20CABATINGAN/OneDrive/Documents/GitHub/MyProfile/Portfolio/js/modules/registry/componentRegistry.js) mapping all 13 content types (`header`, `text_block`, `project_card`, `record_card`, `experience_entry`, `credential_list`, `focus_chip_group`, `contact_cluster`, `stack_category`, `creative_showcase`, `link_button`, `editorial_stamp`, `profile_meta`) to both public/render-view HTML and edit-view form schemas.
+- Dev-time parity test suite: Run `node tests/parity-check.js` to verify 100% parity across all sections and items.
+
+### 3. Serverless Security & Storage (`/api`)
+- Protected serverless endpoints compare against a salted SHA-256 hash and issue signed `httpOnly`, `Secure`, `SameSite=Strict` cookies with 4-hour expiration.
+- Brute-force protection: 5 failed attempts locks out the client IP for 15 minutes.
+- Draft vs. Published persistence:
+  - Draft autosaves locally and server-side to `/api/content/draft`.
+  - "PUBLISH LIVE" promotes draft to live CDN baseline and stores rolling snapshots for rollback.
+  - "Export JSON" and "Import" allow full disaster-recovery backups.
+
+---
+
+## ⚙️ Required Vercel Environment Variables
+
+When deploying to [Vercel](https://vercel.com), configure the following environment variables under **Project Settings → Environment Variables**:
+
+| Variable Name | Required | Default / Example Value | Description |
+| :--- | :---: | :--- | :--- |
+| `ADMIN_PASSCODE_HASH` | **Yes** | `24efb5cf3758522bd85f5567d4e4ae604a55043a6cd68b821859428995cd5edf` | SHA-256 hash of your admin passcode (default test passcode is `123456777`). Generate a new hash using `echo -n "YourSecretPassword" \| sha256sum` or via the top bar Passcode tool. |
+| `SESSION_SIGNING_SECRET` | **Yes** | `cabatingan-portfolio-v4-super-secret-hmac-key-2026` | High-entropy random string (min 32 characters) used to cryptographically sign session cookies with HMAC-SHA256. |
+| `STORAGE_PROVIDER` | Optional | `local` (or `vercel-blob`, `upstash-redis`) | Storage persistence engine. Default fallback stores draft/published states in memory and local storage. |
+
+---
+
 ## 🚀 How to Run Locally
 
 Because the project uses native ES Modules, browsers require it to be served via HTTP:
 
 ```powershell
 # Open terminal in project directory:
-cd "C:\Users\RICKSMER CABATINGAN\.gemini\antigravity\scratch\portfolio"
+cd "c:\Users\RICKSMER CABATINGAN\OneDrive\Documents\GitHub\MyProfile\Portfolio"
 
 # Start local server:
 python -m http.server 8000
 ```
 Then visit **[http://localhost:8000](http://localhost:8000)** in your browser.
+
+To enter Edit Mode:
+1. Click the subtle trigger in the footer or bottom navigation (`#admin-auth-trigger`).
+2. Enter the default administration passcode: `123456777`.
+3. The editor lazy-loads on demand and opens in **View 1: Static B&W Edit View**.
+4. Use the top bar to switch to **View 2: Live Render View**, undo/redo changes, export/import JSON, or click **PUBLISH LIVE**.
+
