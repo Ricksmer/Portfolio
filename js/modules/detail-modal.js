@@ -3,9 +3,7 @@
  * Implements full-screen dedicated page experience with deep linking
  * and complete Admin In-Place Editing (text, links, and photo attachments)
  */
-import { PROJECTS } from '../data/projects.js';
-import { ACHIEVEMENTS } from '../data/achievements.js';
-import { EXPERIENCE } from '../data/experience.js';
+import { PROJECTS, ACHIEVEMENTS, EXPERIENCE } from '../data/portfolioData.js';
 import {
   isAdminActive,
   getAttachedPhoto,
@@ -62,8 +60,16 @@ export function initDetailModal() {
     const savedTakeawayTitle = getDetailEdit(`detail_${category}_${item.id}_takeaway_title`) || '// KEY TAKEAWAY & ARCHITECTURE';
     const savedTakeawayBody = getDetailEdit(`detail_${category}_${item.id}_takeaway_body`) || 'Designed with strict separation of concerns, defensive runtime error handling, and a high-contrast brutalist design language for effortless clarity.';
 
+    const repoUrl = item.repoUrl || (category === 'projects' ? `https://github.com/Ricksmer/${item.id}` : 'https://github.com/Ricksmer');
+    const liveUrl = item.liveUrl || null;
+
     if (breadcrumbCategory) breadcrumbCategory.textContent = categoryName;
     if (breadcrumbTitle) breadcrumbTitle.textContent = title;
+
+    const topNavPill = document.querySelector('.detail-top-nav .detail-nav-actions .pill');
+    if (topNavPill) {
+      topNavPill.href = repoUrl;
+    }
 
     const adminMode = isAdminActive();
 
@@ -74,7 +80,11 @@ export function initDetailModal() {
       const attachedPhoto = getAttachedPhoto(photoKey);
 
       galleryHtml += `
-        <div class="detail-specimen-frame" data-photo-key="${photoKey}">
+        <div class="detail-specimen-frame hud-frame" data-photo-key="${photoKey}">
+          <div class="hud-bracket hud-bracket-tl" aria-hidden="true"></div>
+          <div class="hud-bracket hud-bracket-tr" aria-hidden="true"></div>
+          <div class="hud-bracket hud-bracket-bl" aria-hidden="true"></div>
+          <div class="hud-bracket hud-bracket-br" aria-hidden="true"></div>
           ${attachedPhoto ? `
             <img src="${attachedPhoto}" class="detail-specimen-img" alt="Attached Specimen 0${i}">
           ` : `
@@ -90,7 +100,11 @@ export function initDetailModal() {
     }
 
     contentArea.innerHTML = `
-      <div class="detail-header-block">
+      <div class="detail-header-block hud-frame">
+        <div class="hud-bracket hud-bracket-tl" aria-hidden="true"></div>
+        <div class="hud-bracket hud-bracket-tr" aria-hidden="true"></div>
+        <div class="hud-bracket hud-bracket-bl" aria-hidden="true"></div>
+        <div class="hud-bracket hud-bracket-br" aria-hidden="true"></div>
         <div class="detail-page-tag">// ${categoryName} — DETAILED SPECIFICATION</div>
         <h1 class="detail-page-title" ${adminMode ? `contenteditable="true" data-edit-id="detail_${category}_${item.id}_title"` : ''}>${title}</h1>
         <div class="detail-page-meta" ${adminMode ? `contenteditable="true" data-edit-id="detail_${category}_${item.id}_meta"` : ''}>${meta}</div>
@@ -106,7 +120,11 @@ export function initDetailModal() {
             const savedP = getDetailEdit(`detail_${category}_${item.id}_p_${pIdx}`) || p;
             return `<p ${adminMode ? `contenteditable="true" data-edit-id="detail_${category}_${item.id}_p_${pIdx}"` : ''}>${savedP}</p>`;
           }).join('')}
-          <div style="margin-top: 32px; padding: 24px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,0.02);">
+          <div class="detail-takeaway-container hud-frame" style="margin-top: 32px; padding: 24px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,0.02);">
+            <div class="hud-bracket hud-bracket-tl" aria-hidden="true"></div>
+            <div class="hud-bracket hud-bracket-tr" aria-hidden="true"></div>
+            <div class="hud-bracket hud-bracket-bl" aria-hidden="true"></div>
+            <div class="hud-bracket hud-bracket-br" aria-hidden="true"></div>
             <div class="detail-takeaway-title" style="font-family: var(--font-m); font-size: 11px; color: var(--iris-a); margin-bottom: 8px;" ${adminMode ? `contenteditable="true" data-edit-id="detail_${category}_${item.id}_takeaway_title"` : ''}>${savedTakeawayTitle}</div>
             <p class="detail-takeaway-body" style="font-size: 14px; margin: 0; color: var(--fg-dim);" ${adminMode ? `contenteditable="true" data-edit-id="detail_${category}_${item.id}_takeaway_body"` : ''}>
               ${savedTakeawayBody}
@@ -115,7 +133,11 @@ export function initDetailModal() {
         </div>
 
         <aside class="detail-sidebar">
-          <div class="detail-sidebar-box">
+          <div class="detail-sidebar-box hud-frame">
+            <div class="hud-bracket hud-bracket-tl" aria-hidden="true"></div>
+            <div class="hud-bracket hud-bracket-tr" aria-hidden="true"></div>
+            <div class="hud-bracket hud-bracket-bl" aria-hidden="true"></div>
+            <div class="hud-bracket hud-bracket-br" aria-hidden="true"></div>
             <div class="detail-sidebar-title">// CORE METRIC & ROLE</div>
             <div style="font-size: 14px; color: var(--fg); margin-bottom: 8px;">
               <b class="detail-role-lead" ${adminMode ? `contenteditable="true" data-edit-id="detail_${category}_${item.id}_role_lead"` : ''}>Lead Developer &amp; Designer</b>
@@ -124,7 +146,11 @@ export function initDetailModal() {
           </div>
 
           ${tags.length ? `
-            <div class="detail-sidebar-box">
+            <div class="detail-sidebar-box hud-frame">
+              <div class="hud-bracket hud-bracket-tl" aria-hidden="true"></div>
+              <div class="hud-bracket hud-bracket-tr" aria-hidden="true"></div>
+              <div class="hud-bracket hud-bracket-bl" aria-hidden="true"></div>
+              <div class="hud-bracket hud-bracket-br" aria-hidden="true"></div>
               <div class="detail-sidebar-title">// TECH SPECIFICATION</div>
               <div class="detail-tags-cloud">
                 ${tags.map(t => `<span class="p-tag">${t}</span>`).join('')}
@@ -132,11 +158,22 @@ export function initDetailModal() {
             </div>
           ` : ''}
 
-          <div class="detail-sidebar-box">
-            <div class="detail-sidebar-title">// EXTERNAL REPOSITORY</div>
-            <a class="pill" href="https://github.com/Ricksmer" target="_blank" rel="noopener" style="width: 100%; justify-content: center;" data-link-id="detail_${category}_${item.id}_repo">
-              <span class="k">GH</span>Open on GitHub ↗
-            </a>
+          <div class="detail-sidebar-box hud-frame">
+            <div class="hud-bracket hud-bracket-tl" aria-hidden="true"></div>
+            <div class="hud-bracket hud-bracket-tr" aria-hidden="true"></div>
+            <div class="hud-bracket hud-bracket-bl" aria-hidden="true"></div>
+            <div class="hud-bracket hud-bracket-br" aria-hidden="true"></div>
+            <div class="detail-sidebar-title">// VERIFIED LINKS &amp; SOURCE</div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <a class="pill" href="${repoUrl}" target="_blank" rel="noopener" style="width: 100%; justify-content: center;" data-link-id="detail_${category}_${item.id}_repo">
+                <span class="k">REPO</span>${category === 'projects' ? 'Project Repository ↗' : 'Profile Repository ↗'}
+              </a>
+              ${liveUrl ? `
+                <a class="pill" href="${liveUrl}" target="_blank" rel="noopener" style="width: 100%; justify-content: center;" data-link-id="detail_${category}_${item.id}_live">
+                  <span class="k">LIVE</span>Launch Application ↗
+                </a>
+              ` : ''}
+            </div>
           </div>
         </aside>
       </div>

@@ -6,6 +6,7 @@
 @import './base.css';
 @import './layout.css';
 @import './components/header.css';
+@import './components/hud.css';
 @import './components/sweep.css';
 @import './components/spine.css';
 @import './components/orb.css';

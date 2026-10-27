@@ -61,6 +61,28 @@
   background: linear-gradient(160deg, rgba(255, 255, 255, 0.04) 0%, rgba(13, 13, 16, 0.85) 75%);
 }
 
+.arc-card-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.arc-card-spec {
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--iris-a);
+}
+
+.arc-card-aspect {
+  font-family: var(--font-m);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--fg-faint);
+  text-transform: uppercase;
+}
+
 /* Graphic Placeholder / Abstract Refraction Backdrop */
 .arc-card-fig {
   flex: 1;
@@ -72,17 +94,29 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   overflow: hidden;
 }
 
-.arc-card-fig::after {
-  content: 'REFRACT // 3D';
+.arc-fig-label {
   font-family: var(--font-m);
   font-size: 10px;
   letter-spacing: 0.2em;
   color: var(--fg-faint);
-  opacity: 0.7;
+  opacity: 0.85;
+  z-index: 2;
+}
+
+.arc-fig-ambient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.08) 50%, transparent 60%);
+  animation: figShimmer 6s infinite linear;
+}
+
+@keyframes figShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 .arc-card-info {

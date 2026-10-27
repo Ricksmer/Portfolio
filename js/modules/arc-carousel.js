@@ -3,7 +3,7 @@
  * Creative Portfolio Teaser Section
  * Renders cards along an elliptical curved 3D arc with drag, nav buttons, and teaser routing
  */
-import { CREATIVE_ITEMS, CREATIVE_EXTERNAL_URL } from '../data/creative.js';
+import { CREATIVE_ITEMS, CREATIVE_EXTERNAL_URL } from '../data/portfolioData.js';
 
 export function initArcCarousel() {
   const track = document.getElementById('arc-carousel-track');
@@ -26,12 +26,23 @@ export function initArcCarousel() {
 
   CREATIVE_ITEMS.forEach((item, index) => {
     const card = document.createElement('div');
-    card.className = 'arc-card';
+    card.className = 'arc-card hud-frame';
     card.setAttribute('data-index', index);
     card.setAttribute('data-cursor', 'OPEN');
     card.innerHTML = `
+      <div class="hud-bracket hud-bracket-tl" aria-hidden="true"></div>
+      <div class="hud-bracket hud-bracket-tr" aria-hidden="true"></div>
+      <div class="hud-bracket hud-bracket-bl" aria-hidden="true"></div>
+      <div class="hud-bracket hud-bracket-br" aria-hidden="true"></div>
       <div class="arc-card-inner">
-        <div class="arc-card-fig"></div>
+        <div class="arc-card-header-bar">
+          <span class="arc-card-spec">[ARCHIVE // 0${index + 1}]</span>
+          <span class="arc-card-aspect">${item.aspect}</span>
+        </div>
+        <div class="arc-card-fig">
+          <div class="arc-fig-ambient"></div>
+          <span class="arc-fig-label">PRISM // SPECIMEN</span>
+        </div>
         <div class="arc-card-info">
           <span class="arc-card-category">${item.category}</span>
           <h4 class="arc-card-title">${item.title}</h4>
@@ -39,7 +50,7 @@ export function initArcCarousel() {
         </div>
       </div>
       <div class="arc-card-teaser">
-        <span>Open creative portfolio? →</span>
+        <span>EXPLORE ARCHIVE ↗</span>
       </div>
     `;
 

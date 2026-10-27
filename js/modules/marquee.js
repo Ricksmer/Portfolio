@@ -2,7 +2,7 @@
  * Infinite Tech Stack Marquee Module
  * Renders categorized skill chips and manages infinite looping tracks
  */
-import { TECH_STACK } from '../data/techStack.js';
+import { TECH_STACK } from '../data/portfolioData.js';
 
 export function initTechMarquee() {
   const container = document.getElementById('tech-stack-container');
@@ -25,8 +25,8 @@ export function initTechMarquee() {
     const track = document.createElement('div');
     track.className = `marquee-track ${index % 2 === 1 ? 'reverse' : ''}`;
 
-    // Duplicate list 3 times to ensure infinite smooth seamless looping across all viewport widths
-    const fullList = [...group.items, ...group.items, ...group.items];
+    // Duplicate list 4 times to ensure infinite smooth seamless looping across all viewport widths with -50% translateX
+    const fullList = [...group.items, ...group.items, ...group.items, ...group.items];
 
     fullList.forEach((skill) => {
       const chip = document.createElement('div');

@@ -114,16 +114,34 @@ function initPageLoadEntrance() {
     { y: 0, opacity: 1, scale: 1, duration: 1.1, delay: 0.1 }
   )
   .fromTo(
+    '.timeline-spine',
+    { x: -30, opacity: 0 },
+    { x: 0, opacity: 1, duration: 0.9 },
+    '-=0.8'
+  )
+  .fromTo(
     '.editorial-stamp, .hero-kicker',
     { opacity: 0, y: 18 },
     { opacity: 1, y: 0, duration: 0.8, stagger: 0.08 },
     '-=0.7'
   )
   .fromTo(
-    '.hero-name',
-    { y: 40, opacity: 0, filter: 'blur(10px)' },
-    { y: 0, opacity: 1, filter: 'blur(0px)', duration: 1.1 },
+    '.hero-name .chrome-line',
+    { y: 45, opacity: 0, filter: 'blur(10px)' },
+    { y: 0, opacity: 1, filter: 'blur(0px)', duration: 1.1, stagger: 0.14, ease: 'power4.out' },
     '-=0.6'
+  )
+  .fromTo(
+    '.hud-bracket',
+    { scale: 0, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.5, stagger: 0.05 },
+    '-=0.7'
+  )
+  .fromTo(
+    '.hud-sparkle',
+    { scale: 0, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.6, stagger: 0.08 },
+    '-=0.5'
   )
   .fromTo(
     '.hero-subline',

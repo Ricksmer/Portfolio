@@ -134,29 +134,40 @@
   box-shadow: 0 0 12px rgba(166, 243, 255, 0.2);
 }
 
-/* Dedicated Circular Arrow Container (Item #8) */
+/* Dedicated Interactive Action Button on Cards */
 .project-arrow-btn {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: var(--glass);
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--glass-border);
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  flex: none;
+  gap: 8px;
   font-family: var(--font-m);
-  font-size: 16px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   color: var(--fg);
+  cursor: pointer;
+  flex: none;
   transition: all 0.25s ease;
 }
 
+.project-arrow-btn .arrow-glyph {
+  font-size: 14px;
+  transition: transform 0.25s ease;
+}
+
 .project-card:hover .project-arrow-btn {
-  border-color: var(--iris-a);
-  background: rgba(255, 255, 255, 0.14);
-  color: var(--iris-a);
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.2);
+}
+
+.project-card:hover .project-arrow-btn .arrow-glyph {
   transform: translateX(4px);
-  box-shadow: 0 0 16px rgba(166, 243, 255, 0.3);
 }
 
 /* ================= Achievements Full-Width Drag Strip (Item #1 & #6) ================= */
@@ -238,13 +249,27 @@
   box-shadow: 0 22px 55px rgba(0, 0, 0, 0.7), 0 0 24px rgba(201, 182, 255, 0.2);
 }
 
+.ach-serial-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.ach-index-tag {
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--fg-faint);
+}
+
 .ach-year {
   font-family: var(--font-m);
   font-size: 38px;
   font-weight: 800;
-  color: rgba(255, 255, 255, 0.88); /* Lighter, clear, high-contrast & prominent */
+  color: #ffffff; /* Lighter, clear, high-contrast & prominent */
   text-shadow: 0 0 20px rgba(166, 243, 255, 0.35);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   letter-spacing: -0.02em;
 }
 
@@ -264,10 +289,36 @@
   margin-bottom: 12px;
 }
 
+.ach-card-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
 .ach-meta {
   font-size: 13px;
   line-height: 1.5;
   color: var(--fg-dim);
+}
+
+.ach-footer-row {
+  margin-top: 14px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.achievement-card:hover .project-arrow-btn {
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.2);
+}
+
+.achievement-card:hover .project-arrow-btn .arrow-glyph {
+  transform: translateX(4px);
 }
 
 /* ================= Experience Stack ================= */
@@ -285,26 +336,52 @@
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border-radius: var(--radius);
-  padding: 30px 36px;
+  padding: 28px 36px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 28px;
   cursor: pointer;
-  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: all 0.28s var(--ease-out-expo);
+}
+
+.experience-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, #ffffff 0%, var(--iris-a) 60%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .experience-item:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: var(--iris-c);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.4);
   transform: translateX(8px);
-  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 24px rgba(255, 255, 255, 0.12);
+}
+
+.experience-item:hover::before {
+  opacity: 1;
 }
 
 .exp-role-block {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
+}
+
+.exp-badge {
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--iris-a);
 }
 
 .exp-role {
@@ -318,12 +395,29 @@
   color: var(--fg-dim);
 }
 
+.exp-side-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
 .exp-period {
   font-family: var(--font-m);
   font-size: 12px;
   letter-spacing: 0.1em;
   color: var(--iris-c);
   white-space: nowrap;
+}
+
+.experience-item:hover .project-arrow-btn {
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.2);
+}
+
+.experience-item:hover .project-arrow-btn .arrow-glyph {
+  transform: translateX(4px);
 }
 
 /* Responsive */

@@ -82,8 +82,8 @@ section {
 /* ================= Section 1: Hero ================= */
 #intro {
   min-height: 100vh;
-  padding-top: 130px;
-  padding-bottom: 70px;
+  padding-top: 100px;
+  padding-bottom: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -161,12 +161,20 @@ section {
 }
 
 .hero-name {
-  font-size: clamp(52px, 8.5vw, 114px);
+  font-size: clamp(44px, 6.2vw, 92px);
   font-weight: 800;
   letter-spacing: -0.04em;
-  line-height: 1.05;
-  margin-bottom: 30px;
+  line-height: 1.02;
+  margin-bottom: 22px;
   color: var(--fg);
+}
+
+@media (max-width: 768px) {
+  .hero-name {
+    font-size: clamp(30px, 8.8vw, 44px);
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
 }
 
 .hero-name .chrome-highlight {

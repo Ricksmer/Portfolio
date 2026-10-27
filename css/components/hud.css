@@ -1,0 +1,224 @@
+/**
+ * Technical Cyber HUD Components
+ * Authentic Y2K / Acid Graphic details from mood references:
+ * Corner brackets, crosshairs, barcodes, serial labels, twinkling sparkle stars.
+ */
+
+/* ================= Corner Brackets ================= */
+.hud-frame {
+  position: relative;
+}
+
+.hud-bracket {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  z-index: 5;
+  border-color: rgba(255, 255, 255, 0.45);
+  border-style: solid;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.hud-bracket-tl {
+  top: -6px;
+  left: -6px;
+  border-width: 1.5px 0 0 1.5px;
+}
+
+.hud-bracket-tr {
+  top: -6px;
+  right: -6px;
+  border-width: 1.5px 1.5px 0 0;
+}
+
+.hud-bracket-bl {
+  bottom: -6px;
+  left: -6px;
+  border-width: 0 0 1.5px 1.5px;
+}
+
+.hud-bracket-br {
+  bottom: -6px;
+  right: -6px;
+  border-width: 0 1.5px 1.5px 0;
+}
+
+.hud-frame:hover .hud-bracket {
+  border-color: var(--iris-a);
+}
+
+.hud-frame:hover .hud-bracket-tl { transform: translate(-2px, -2px); }
+.hud-frame:hover .hud-bracket-tr { transform: translate(2px, -2px); }
+.hud-frame:hover .hud-bracket-bl { transform: translate(-2px, 2px); }
+.hud-frame:hover .hud-bracket-br { transform: translate(2px, 2px); }
+
+/* ================= Crosshairs & Coordinate Tags ================= */
+.hud-crosshair {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-m);
+  font-size: 11px;
+  user-select: none;
+}
+
+.hud-crosshair::before {
+  content: '⌖';
+  font-size: 13px;
+  margin-right: 6px;
+  color: var(--iris-a);
+}
+
+/* ================= Barcode & Serial Label ================= */
+.editorial-stamp {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.hud-serial-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--fg-dim);
+  backdrop-filter: blur(8px);
+}
+
+@media (max-width: 768px) {
+  .hud-serial-badge {
+    gap: 6px;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+  }
+}
+
+.hud-barcode {
+  display: inline-flex;
+  align-items: center;
+  height: 14px;
+  gap: 2px;
+}
+
+.hud-barcode span {
+  display: inline-block;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.65);
+}
+
+.hud-barcode span:nth-child(odd) { width: 1px; }
+.hud-barcode span:nth-child(even) { width: 2px; }
+.hud-barcode span:nth-child(3n) { width: 3px; }
+
+/* ================= Twinkling 4-Point Sparkle Stars ================= */
+.hud-sparkle {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  color: #ffffff;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.85));
+  animation: sparkleTwinkle 3.2s ease-in-out infinite;
+  z-index: 4;
+}
+
+.hud-sparkle.delay-1 { animation-delay: 0.8s; }
+.hud-sparkle.delay-2 { animation-delay: 1.6s; }
+.hud-sparkle.delay-3 { animation-delay: 2.4s; }
+
+@keyframes sparkleTwinkle {
+  0%, 100% {
+    transform: scale(0.3) rotate(0deg);
+    opacity: 0.1;
+  }
+  50% {
+    transform: scale(1.15) rotate(90deg);
+    opacity: 1;
+  }
+}
+
+/* ================= High-Contrast Liquid Chrome Display Typography ================= */
+.chrome-display-title {
+  font-family: var(--font-display, 'Unbounded', sans-serif);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+  color: #ffffff;
+  position: relative;
+}
+
+.chrome-display-title .chrome-line {
+  display: block;
+  position: relative;
+  overflow: visible;
+}
+
+.chrome-display-title .chrome-liquid-text {
+  display: inline-block;
+  background: linear-gradient(
+    120deg,
+    #ffffff 0%,
+    #d1dbe8 20%,
+    #69788d 40%,
+    #131720 50%,
+    #ffffff 65%,
+    #8e9eb3 85%,
+    #ffffff 100%
+  );
+  background-size: 260% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 35px rgba(255, 255, 255, 0.28));
+  animation: liquidShimmer 10s ease-in-out infinite alternate;
+  padding-right: 0.08em;
+}
+
+@keyframes liquidShimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ================= Status Tag with Pulsing Dot ================= */
+.hud-pill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  font-family: var(--font-m);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+.hud-pill-tag .pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #00ff9d;
+  box-shadow: 0 0 8px #00ff9d;
+  animation: hudPulse 2s infinite;
+}
+
+@keyframes hudPulse {
+  0%, 100% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.3); opacity: 1; }
+}

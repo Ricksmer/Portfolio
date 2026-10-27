@@ -9,7 +9,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&family=Unbounded:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
 
   <!-- Modular Stylesheets -->
   <link rel="stylesheet" href="css/main.css?v=23" />
@@ -123,15 +123,33 @@
       <!-- Vertical Editorial Marginalia (Poster #4 "SHAPING" & Poster #7) -->
       <div class="vertical-marginalia" aria-hidden="true">SHAPING // SOFTWARE // 2026</div>
 
-      <div class="hero-content-block">
+      <div class="hero-content-block hud-frame">
+        <div class="hud-bracket hud-bracket-tl" aria-hidden="true"></div>
+        <div class="hud-bracket hud-bracket-tr" aria-hidden="true"></div>
+        <div class="hud-bracket hud-bracket-bl" aria-hidden="true"></div>
+        <div class="hud-bracket hud-bracket-br" aria-hidden="true"></div>
+
         <div class="editorial-stamp" style="margin-bottom: 16px;">
+          <div class="hud-serial-badge">
+            <div class="hud-barcode" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <span>SN: RC-052-2026</span>
+          </div>
           <span class="stamp-meta">01/7 // REFRACTIONS &amp;! PRISM</span>
           <span class="stamp-pill">CRYSTAL CLEAR</span>
         </div>
         <div class="hero-kicker">// SOFTWARE ENGINEERING STUDENT — CEBU CITY, PH</div>
-        <h1 class="hero-name">
-          Ricksmer<br />
-          <span class="chrome-highlight">Cabatingan</span>
+        <h1 class="hero-name chrome-display-title">
+          <span class="chrome-line"><span class="chrome-liquid-text">Ricksmer</span></span>
+          <span class="chrome-line"><span class="chrome-liquid-text">Cabatingan</span></span>
+          <!-- Twinkling 4-point sparkle stars on headline peaks -->
+          <svg class="hud-sparkle" style="top: -12px; right: 24%;" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 0L14 9L23 12L14 15L12 24L10 15L1 12L10 9Z"/>
+          </svg>
+          <svg class="hud-sparkle delay-2" style="bottom: 14px; left: 42%;" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 0L14 9L23 12L14 15L12 24L10 9Z"/>
+          </svg>
         </h1>
         <p class="hero-subline">
           BS Information Technology, 3rd Year at Cebu Institute of Technology – University. National DOST Scholar building software and leading creative direction.
@@ -139,6 +157,7 @@
         <div class="hero-meta">
           <div>ROLE: <span>Chief Creatives Officer, GDGoC CIT-U</span></div>
           <div>BASED: <span>Cebu City, Philippines</span></div>
+          <div class="hud-crosshair">10°18'N 123°53'E</div>
         </div>
         <div class="admin-trigger-wrap">
           <button class="admin-auth-trigger" id="admin-auth-trigger" aria-label="Editor Access" title="Authenticate to Edit Portfolio">
@@ -165,7 +184,14 @@
       <div class="deco-text" style="top: -40px; right: 0;">01/?</div>
 
       <div class="about-grid">
-        <div class="reveal about-text-panel">
+        <div class="reveal about-text-panel hud-frame">
+          <div class="hud-bracket hud-bracket-tl" aria-hidden="true"></div>
+          <div class="hud-bracket hud-bracket-tr" aria-hidden="true"></div>
+          <div class="hud-bracket hud-bracket-bl" aria-hidden="true"></div>
+          <div class="hud-bracket hud-bracket-br" aria-hidden="true"></div>
+          <div class="hud-serial-badge" style="margin-bottom: 20px;">
+            <span>[DOSSIER // 02 — INTEL]</span>
+          </div>
           <p class="about-lead">
             Driven by obsessive craft and creative curiosity — engineering software that feels as deliberate, fluid, and refined to touch as it is structurally sound.
           </p>
@@ -175,7 +201,11 @@
 
           <!-- Distinct Individual Sentences for Credentials (Item #4) -->
           <div class="credentials-box">
-            <div class="credential-card">
+            <div class="credential-card hud-frame" data-tilt>
+              <div class="hud-bracket hud-bracket-tl" aria-hidden="true"></div>
+              <div class="hud-bracket hud-bracket-tr" aria-hidden="true"></div>
+              <div class="hud-bracket hud-bracket-bl" aria-hidden="true"></div>
+              <div class="hud-bracket hud-bracket-br" aria-hidden="true"></div>
               <div class="cred-title">// ACADEMIC HONORS</div>
               <ul class="cred-sentence-list">
                 <li class="cred-sentence-item">Awarded as a National DOST Scholar under the Batch 2024 Merit Scholarship program.</li>
@@ -185,7 +215,11 @@
               </ul>
             </div>
 
-            <div class="credential-card">
+            <div class="credential-card hud-frame" data-tilt>
+              <div class="hud-bracket hud-bracket-tl" aria-hidden="true"></div>
+              <div class="hud-bracket hud-bracket-tr" aria-hidden="true"></div>
+              <div class="hud-bracket hud-bracket-bl" aria-hidden="true"></div>
+              <div class="hud-bracket hud-bracket-br" aria-hidden="true"></div>
               <div class="cred-title">// LEADERSHIP ROLES</div>
               <ul class="cred-sentence-list">
                 <li class="cred-sentence-item">Leads visual branding, motion campaigns, and creative deliverables as Chief Creatives Officer for GDGoC CIT-U.</li>
@@ -201,15 +235,15 @@
           <div class="explore-section">
             <div class="explore-label">// CURRENTLY EXPLORING</div>
             <div class="explore-chips">
-              <div class="explore-chip" tabindex="0">
+              <div class="explore-chip" tabindex="0" data-tilt>
                 <b>UI/UX Design</b>
                 <small>Design systems, typography, interaction</small>
               </div>
-              <div class="explore-chip" tabindex="0">
+              <div class="explore-chip" tabindex="0" data-tilt>
                 <b>Frontend Development</b>
                 <small>Motion graphics, WebGL, responsive frameworks</small>
               </div>
-              <div class="explore-chip" tabindex="0">
+              <div class="explore-chip" tabindex="0" data-tilt>
                 <b>Game Development</b>
                 <small>Mechanics, physics tuning, rapid prototyping</small>
               </div>
@@ -487,7 +521,58 @@
       <p class="reveal" style="max-width: 680px; margin-bottom: 32px;">
         Continuous infinite inventory of languages, frameworks, and creative software.
       </p>
-      <div id="tech-stack-container"></div>
+      <div id="tech-stack-container">
+        <!-- Static Semantic Fallback Pre-render: Guaranteed Never Empty -->
+        <div class="stack-group">
+          <div class="stack-group-label">// PROGRAMMING &amp; MARKUP LANGUAGES [LANG // 01]</div>
+          <div class="marquee-container">
+            <div class="marquee-track">
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">Java</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">JavaScript</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">TypeScript</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">Python</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">PHP</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">Kotlin</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">C</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">HTML5</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">CSS3</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="stack-group-label">// FRAMEWORKS &amp; CLOUD [INFRA // 02]</div>
+          <div class="marquee-container">
+            <div class="marquee-track reverse">
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">React</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">Next.js</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">Node.js</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">Express</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">PostgreSQL</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">AWS</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">Google Cloud</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">Vercel</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="stack-group">
+          <div class="stack-group-label">// CREATIVE &amp; DEV TOOLS [TOOLS // 03]</div>
+          <div class="marquee-container">
+            <div class="marquee-track">
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">Figma</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">Canva</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">Ibis Paint</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">Photoshop</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">After Effects</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">CapCut</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">DaVinci Resolve</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">Blender</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">GitHub</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">VS Code</span></div>
+              <div class="tech-chip"><span class="chip-symbol">⟡</span><span class="chip-name">Notion</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Subtle Section Divider (Item #10) -->
@@ -503,7 +588,7 @@
         A curated teaser previewing brand systems, neo-chrome posters, game assets, editorial design, and 3D visual code. Explore the coverflow arc below or view the complete portfolio.
       </p>
       <div class="reveal" style="margin-bottom: 28px;">
-        <a class="pill" href="https://github.com/Ricksmer" target="_blank" rel="noopener">
+        <a class="pill" id="creative-portfolio-external-link" data-link-id="creative_portfolio_external_link" href="https://github.com/Ricksmer" target="_blank" rel="noopener">
           <span class="k">PORTFOLIO</span>VIEW FULL CREATIVE PORTFOLIO ↗
         </a>
       </div>

@@ -321,7 +321,7 @@ export function initAdminAuth() {
     overlay.innerHTML = `
       <div class="cms-link-popover" role="dialog" aria-modal="true">
         <div class="cms-link-popover-title">
-          <span>🔗</span> EDIT LINK DESTINATION
+          <span>// LINK</span> EDIT DESTINATION ADDRESS
         </div>
         <div class="cms-link-popover-hint">
           Enter new destination address (URL, https://..., mailto:, or tel:):

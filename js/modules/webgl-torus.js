@@ -183,8 +183,28 @@ export function initWebGLTorus() {
     const starMesh = new THREE.Mesh(createChromeStarGeometry(), chromeMaterial);
     starMesh.rotation.set(0.18, 0.42, 0.12);
 
+    // Planetary thin chrome halo ring
+    const haloRing = new THREE.Mesh(
+      new THREE.TorusGeometry(2.18, 0.038, 16, 96),
+      chromeMaterial
+    );
+    haloRing.rotation.x = Math.PI * 0.42;
+    haloRing.rotation.y = Math.PI * 0.12;
+
+    // Liquid mercury orbiting droplets
+    const droplets = [];
+    for (let d = 0; d < 3; d++) {
+      const drop = new THREE.Mesh(
+        new THREE.SphereGeometry(0.12 + d * 0.03, 20, 20),
+        chromeMaterial
+      );
+      droplets.push(drop);
+    }
+
     const starGroup = new THREE.Group();
     starGroup.add(starMesh);
+    starGroup.add(haloRing);
+    droplets.forEach(drop => starGroup.add(drop));
     scene.add(starGroup);
 
     // =========================================================================
@@ -376,9 +396,15 @@ export function initWebGLTorus() {
     // 8. 3-Act Continuous Narrative Engine
     // =========================================================================
     const clock = new THREE.Clock();
+    let isTabVisible = true;
+    document.addEventListener('visibilitychange', () => {
+      isTabVisible = !document.hidden;
+    });
 
     function animate() {
       requestAnimationFrame(animate);
+      if (!isTabVisible) return;
+
       const dt = Math.min(clock.getDelta(), 0.1);
       const time = clock.getElapsedTime();
 
@@ -408,6 +434,19 @@ export function initWebGLTorus() {
           starMesh.rotation.y += (0.42 + fidgetSpinVel) * dt + scrollVelocity * 1.8;
           starMesh.rotation.x += (0.20 + fidgetSpinVel * 0.15) * dt;
           starMesh.rotation.z += dt * 0.12;
+
+          // Animate planetary halo ring and mercury droplets
+          haloRing.rotation.z += dt * 0.24;
+          haloRing.rotation.y += dt * 0.14;
+          droplets.forEach((drop, idx) => {
+            const dropAngle = time * (0.85 + idx * 0.28) + (idx * Math.PI * 2) / 3;
+            const rad = 2.18 + Math.sin(time * 1.6 + idx) * 0.18;
+            drop.position.set(
+              Math.cos(dropAngle) * rad,
+              Math.sin(dropAngle * 0.75) * 0.65,
+              Math.sin(dropAngle) * rad * 0.45
+            );
+          });
 
           if (isIntro) {
             // Interactive Hero Mode
